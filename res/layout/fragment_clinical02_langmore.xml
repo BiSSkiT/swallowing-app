@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bk_800x480" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    	android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_margin="20dp"
+		    android:text="Langmore and Risk Factors for Pneumonia"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+    		android:layout_gravity="center_horizontal"
+		    android:orientation="vertical" >
+
+		    <CheckBox
+		        android:id="@+id/checkBox1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Dependent for oral cares" />
+
+		    <CheckBox
+		        android:id="@+id/checkBox2"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Multiple medications" />
+
+		    <CheckBox
+		        android:id="@+id/checkBox3"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Tube fed" />
+
+		    <CheckBox
+		        android:id="@+id/checkBox4"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Dependent for feeding" />
+
+		    <CheckBox
+		        android:id="@+id/checkBox5"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Current smoker" />
+
+		    <CheckBox
+		        android:id="@+id/checkBox6"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="20dp"
+		        android:text="Multiple medical conditions " />
+		</LinearLayout>
+
+	</LinearLayout>
+
+</ScrollView>

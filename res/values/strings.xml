@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Keep Calm Swallow On</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">change me</string>
+    <string name="title_activity_splash">Swallow</string>
+    <string name="title_activity_menu1">Main Menu</string>
+    <string name="menu1_button1_text">Clinical</string>
+    <string name="menu1_button2_text">Learning</string>
+    <string name="title_activity_clinical_menu">ClinicalMenuActivity</string>
+    <string name="title_activity_learning_menu">LearningMenuActivity</string>
+    <string name="title_clinical_menu">Clinical Menu</string>
+    <string name="button_clinical_assess">Clincal\nAssessment</string>
+    <string name="button_clincal_diag">Diagnosis</string>
+    <string name="button_clinical_educ">Patient\nEducation</string>
+    <string name="title_activity_clinical_assessment">Clinical Assessment</string>
+    <string name="title_activity_clinical_diagnosis">Clinical Diagnosis</string>
+    <string name="title_activity_clinical_patient_ed">Clinical Patient Education</string>
+    <string name="title_activity_frag_pager_adaptor">FragPagerAdaptorActivity</string>
+    <string name="title_learn_menu">Learning Menu</string>
+    <string name="button_learn_asse">Clinical\nAssessment</string>
+    <string name="button_learn_diag">Diagnosis</string>
+    <string name="button_learn_educ">Patient\nEducation</string>
+    <string name="title_activity_cn_exam_fragment">CnExamFragment</string>
+
+</resources>
