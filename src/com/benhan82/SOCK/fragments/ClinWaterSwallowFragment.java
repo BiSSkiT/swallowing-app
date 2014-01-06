@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 
 import com.benhan82.SOCK.R;
 
-public class ClinLangmoreFragment extends Fragment {
+
+public class ClinWaterSwallowFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_clinical02_langmore, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_clinical04_water_swallow, container, false);
 		return rootView;
 	}
 }

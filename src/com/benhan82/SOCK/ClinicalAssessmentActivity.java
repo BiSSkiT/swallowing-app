@@ -1,6 +1,5 @@
 package com.benhan82.SOCK;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
@@ -11,14 +10,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.benhan82.SOCK.fragments.ClinLangmoreFragment;
 import com.benhan82.SOCK.fragments.ClinObservationsFragment;
+import com.benhan82.SOCK.fragments.ClinOralTrialsFragment;
+import com.benhan82.SOCK.fragments.ClinTomassFragment;
+import com.benhan82.SOCK.fragments.ClinWaterSwallowFragment;
 import com.benhan82.SOCK.fragments.Cn05bFragment;
 import com.benhan82.SOCK.fragments.Cn05cFragment;
 import com.benhan82.SOCK.fragments.Cn07aFragment;
@@ -29,7 +29,7 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;		//subclass of ViewGroup, holds fragments
-	private Fragment cnTopFragment;
+	private CnParentFragment cnParentFragment;
 	
     // Tab titles
     private String[] tabs = { "Observations", "Langmore", "CN exam", "Water Swallow", "TOMASS", "Oral Trials" };
@@ -121,28 +121,28 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 	 ***********************************************/
 	public void cn05WNL(View v) {
 		// Skip to slide 11 (CN7)
-		FragmentTransaction t = cnTopFragment.getChildFragmentManager().beginTransaction();
+		FragmentTransaction ft = cnParentFragment.getChildFragmentManager().beginTransaction();
 		Fragment f = new Cn07aFragment();
-		t.replace(R.id.cnFragmentContainer, f);
-		t.addToBackStack(null);
-		t.commit();
+		ft.replace(R.id.cnFragmentContainer, f);
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 
 	public void cn05Impaired(View v) {
 		// Go to slide "Impaired CN V"
-		FragmentTransaction t = cnTopFragment.getChildFragmentManager().beginTransaction();
+		FragmentTransaction ft = cnParentFragment.getChildFragmentManager().beginTransaction();
 		Fragment f = new Cn05bFragment();
-		t.replace(R.id.cnFragmentContainer, f);
-		t.addToBackStack(null);
-		t.commit();
+		ft.replace(R.id.cnFragmentContainer, f);
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 	
 	public void nextPage(View v) {
-		FragmentTransaction t = cnTopFragment.getChildFragmentManager().beginTransaction();
+		FragmentTransaction ft = cnParentFragment.getChildFragmentManager().beginTransaction();
 		Fragment f = new Cn05cFragment();
-		t.replace(R.id.cnFragmentContainer, f);
-		t.addToBackStack(null);
-		t.commit();
+		ft.replace(R.id.cnFragmentContainer, f);
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 	
 	
@@ -170,14 +170,14 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 		        case 1:
 		            return new ClinLangmoreFragment();
 		        case 2:
-		        	cnTopFragment = new CnParentFragment();
-		        	return cnTopFragment;
+		        	cnParentFragment = new CnParentFragment();
+		        	return cnParentFragment;
 		        case 3:
-		        	return new WaterSwallowFragment();
+		        	return new ClinWaterSwallowFragment();
 		        case 4:
-		        	return new TomassFragment();
+		        	return new ClinTomassFragment();
 		        case 5:
-		        	return new OralTrialsFragment();
+		        	return new ClinOralTrialsFragment();
 	        }
 	 
 	        return null;
@@ -187,47 +187,6 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 		public int getCount() {
 			// return total number of pages.
 			return 6;
-		}
-	}
-	
-	
-	
-	/*
-	 * The following classes describe the Fragments returned for each tab
-	 * Currently there are 6 fragments:
-	 *  "Observations", "Langmore", "CN exam", "Water Swallow", "TOMASS", "Oral Trials"
-	 */
-
-
-
-
-	@SuppressLint("ValidFragment")
-	public class WaterSwallowFragment extends Fragment {
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_clinical04_water_swallow, container, false);
-			return rootView;
-		}
-	}
-
-	@SuppressLint("ValidFragment")
-	public class TomassFragment extends Fragment {
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_clinical05_tomass, container, false);
-			return rootView;
-		}
-	}
-
-	@SuppressLint("ValidFragment")
-	public class OralTrialsFragment extends Fragment {
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_clinical06_oral_trials, container, false);
-			return rootView;
 		}
 	}
 	
