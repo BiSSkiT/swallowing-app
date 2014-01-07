@@ -48,7 +48,11 @@
         <activity
             android:name="com.benhan82.SOCK.ClinicalAssessmentActivity"
             android:label="@string/title_activity_clinical_assessment"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:parentActivityName="com.benhan82.SOCK.ClinicalMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.benhan82.SOCK.ClinicalMenuActivity" />
         </activity>
         <activity
             android:name="com.benhan82.SOCK.ClinicalDiagnosisActivity"

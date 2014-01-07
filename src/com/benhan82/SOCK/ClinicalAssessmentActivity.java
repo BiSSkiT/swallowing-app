@@ -2,6 +2,7 @@ package com.benhan82.SOCK;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -76,6 +77,13 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
         }
         
         actionBar.setTitle("Clinical Assessment");
+	}
+
+	@Override
+	public void onBackPressed() {
+		// Callback method for when the user presses the phone's back button. 
+		// This should be used to pop the last item off the back stack
+		super.onBackPressed();
 	}
 
 	@Override
