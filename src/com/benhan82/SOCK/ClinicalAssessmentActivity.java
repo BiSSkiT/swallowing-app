@@ -2,7 +2,6 @@ package com.benhan82.SOCK;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,12 +25,12 @@ import com.benhan82.SOCK.fragments.Cn05cFragment;
 import com.benhan82.SOCK.fragments.Cn07aFragment;
 import com.benhan82.SOCK.fragments.CnParentFragment;
 
-public class ClinicalAssessmentActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+public class ClinicalAssessmentActivity extends FragmentActivity {
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ViewPager mViewPager;		//subclass of ViewGroup, holds fragments
-	private CnParentFragment cnParentFragment;
+	private ViewPager mViewPager;						//subclass of ViewGroup, holds fragments
+	private CnParentFragment cnParentFragment = null;	//holds child fragments for navigation within tab
+	private int currentTab;
 	
     // Tab titles
     private String[] tabs = { "Observations", "Langmore", "CN exam", "Water Swallow", "TOMASS", "Oral Trials" };
@@ -65,7 +65,8 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 					}
 				});
 
-		// For each of the sections in the app, add a tab to the action bar.
+		// For each of the sections in the app, add a tab to the action bar and set the listener
+		ActionBar.TabListener mTabListener = new MyTabListener();
         for (String tab_name : tabs) {
 			// Create a tab with text corresponding to the page title defined by
 			// the adapter. Also specify this Activity object, which implements
@@ -73,17 +74,10 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 			// this tab is selected.
             actionBar.addTab(actionBar.newTab()
             		.setText(tab_name)
-                    .setTabListener(this));
+                    .setTabListener(mTabListener));
         }
         
         actionBar.setTitle("Clinical Assessment");
-	}
-
-	@Override
-	public void onBackPressed() {
-		// Callback method for when the user presses the phone's back button. 
-		// This should be used to pop the last item off the back stack
-		super.onBackPressed();
 	}
 
 	@Override
@@ -103,23 +97,40 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-
 	@Override
-	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-	}
-
-	@Override
-	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-		// When the given tab is selected, switch to the corresponding page in
-		// the ViewPager.
-		mViewPager.setCurrentItem(tab.getPosition());
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+	public void onBackPressed() {
+		// Callback method for when the user presses the phone's back button. This has
+		// to be overridden to handle the back button when using the viewpager so the
+		// fragment history is navigated rather than exiting the viewpager.
+		int i = Log.d("Current tab is :", String.valueOf(currentTab));
+		if (!cnParentFragment.getChildFragmentManager().popBackStackImmediate()) {
+			finish(); //or call the popBackStack on the container if necessary
+        }
 		
 	}
 	
+	
+	
+	protected class MyTabListener implements ActionBar.TabListener {
+
+		@Override
+		public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
+		}
+
+		@Override
+		public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
+			// When the given tab is selected, switch to the corresponding page in
+			// the ViewPager.
+			currentTab = tab.getPosition();
+			mViewPager.setCurrentItem(currentTab);
+		}
+
+		@Override
+		public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+			
+		}
+		
+	}
 	
 	
 	
@@ -127,6 +138,9 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 	/***********************************************
 	 * onClick event handler methods
 	 ***********************************************/
+	
+	// cnFragmentContainer is the id of the sole layout in fragment_clinical_03_cn_exam.xml used by
+	// CnParentFragment.java
 	public void cn05WNL(View v) {
 		// Skip to slide 11 (CN7)
 		FragmentTransaction ft = cnParentFragment.getChildFragmentManager().beginTransaction();
@@ -156,8 +170,6 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 	
 	
 	
-	
-	
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -170,7 +182,7 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 		}
 
 		@Override
-		public android.support.v4.app.Fragment getItem(int position) {
+		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
 	        switch (position) {
 		        case 0:
@@ -178,8 +190,11 @@ public class ClinicalAssessmentActivity extends FragmentActivity implements
 		        case 1:
 		            return new ClinLangmoreFragment();
 		        case 2:
-		        	cnParentFragment = new CnParentFragment();
-		        	return cnParentFragment;
+		        	if (cnParentFragment == null)
+		        		cnParentFragment = new CnParentFragment(); 
+		        	else
+		        		return cnParentFragment;
+		        	return cnParentFragment; 
 		        case 3:
 		        	return new ClinWaterSwallowFragment();
 		        case 4:
