@@ -103,10 +103,13 @@ public class ClinicalAssessmentActivity extends FragmentActivity {
 		// to be overridden to handle the back button when using the viewpager so the
 		// fragment history is navigated rather than exiting the viewpager.
 		int i = Log.d("Current tab is :", String.valueOf(currentTab));
-		if (!cnParentFragment.getChildFragmentManager().popBackStackImmediate()) {
-			finish(); //or call the popBackStack on the container if necessary
-        }
-		
+		if (currentTab == 2) {
+			if (!cnParentFragment.getChildFragmentManager().popBackStackImmediate()) {
+				finish(); //or call the popBackStack on the container if necessary
+			}
+		}
+		else
+			super.onBackPressed();
 	}
 	
 	
@@ -121,7 +124,7 @@ public class ClinicalAssessmentActivity extends FragmentActivity {
 		public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
 			// When the given tab is selected, switch to the corresponding page in
 			// the ViewPager.
-			currentTab = tab.getPosition();
+			currentTab = tab.getPosition();		// update tab position, used by onBackPressed.
 			mViewPager.setCurrentItem(currentTab);
 		}
 
@@ -185,22 +188,22 @@ public class ClinicalAssessmentActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
 	        switch (position) {
-		        case 0:
-		            return new ClinObservationsFragment();
-		        case 1:
-		            return new ClinLangmoreFragment();
-		        case 2:
-		        	if (cnParentFragment == null)
-		        		cnParentFragment = new CnParentFragment(); 
-		        	else
-		        		return cnParentFragment;
-		        	return cnParentFragment; 
-		        case 3:
-		        	return new ClinWaterSwallowFragment();
-		        case 4:
-		        	return new ClinTomassFragment();
-		        case 5:
-		        	return new ClinOralTrialsFragment();
+	        case 0:
+	            return new ClinObservationsFragment();
+	        case 1:
+	            return new ClinLangmoreFragment();
+	        case 2:
+	        	if (cnParentFragment == null)
+	        		cnParentFragment = new CnParentFragment(); 
+	        	else
+	        		return cnParentFragment;
+	        	return cnParentFragment; 
+	        case 3:
+	        	return new ClinWaterSwallowFragment();
+	        case 4:
+	        	return new ClinTomassFragment();
+	        case 5:
+	        	return new ClinOralTrialsFragment();
 	        }
 	 
 	        return null;
