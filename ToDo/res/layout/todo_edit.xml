@@ -29,12 +29,43 @@
     <EditText
         android:id="@+id/todo_edit_description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dip"
         android:layout_weight="1"
         android:gravity="top"
         android:hint="@string/todo_edit_description"
         android:imeOptions="actionNext" >
     </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1" >
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alert" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NGT" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IVFs" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dry swallows" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/todo_edit_button"

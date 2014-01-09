@@ -4,6 +4,7 @@
     <string-array name="priorities">
         <item>Urgent</item>
         <item>Reminder</item>
+        <item>info</item>
     </string-array>
     
 </resources>
