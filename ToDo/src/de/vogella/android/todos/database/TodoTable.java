@@ -20,10 +20,14 @@ public class TodoTable {
 	private static final String DATABASE_CREATE = "create table " 
 			+ TABLE_TODO
 			+ "(" 
-			+ COLUMN_ID + " integer primary key autoincrement, " 
-			+ COLUMN_CATEGORY + " text not null, " 
+			+ COLUMN_ID + " integer primary key autoincrement," 
+			+ COLUMN_CATEGORY + " text not null," 
 			+ COLUMN_SUMMARY + " text not null," 
-			+ COLUMN_DESCRIPTION + " text not null" 
+			+ COLUMN_DESCRIPTION + " text not null,"
+			+ COLUMN_CB1 + " integer not null," 
+			+ COLUMN_CB2 + " integer not null,"
+			+ COLUMN_CB3 + " integer not null,"
+			+ COLUMN_CB4 + " integer not null"
 			+ ");";
 	
 	public static void onCreate(SQLiteDatabase database) {

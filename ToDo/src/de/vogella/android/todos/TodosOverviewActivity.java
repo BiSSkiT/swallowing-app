@@ -60,6 +60,7 @@ public class TodosOverviewActivity extends ListActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		// handler method called when the user clicks insert button on the menu
 		case R.id.insert:
 			createTodo();
 			return true;
@@ -82,6 +83,8 @@ public class TodosOverviewActivity extends ListActivity implements
 		return super.onContextItemSelected(item);
 	}
 	
+
+	// handler method called when the user clicks insert button on the menu
 	private void createTodo() {
 		Intent i = new Intent(this, TodoDetailActivity.class);
 		startActivity(i);
