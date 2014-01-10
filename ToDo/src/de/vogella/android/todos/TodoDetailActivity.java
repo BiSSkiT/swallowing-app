@@ -104,13 +104,13 @@ public class TodoDetailActivity extends Activity {
 			// if the returned values from the cursor is 0 then 
 			// setChecked(false) or else setChecked(true)
 			int i = cursor.getInt(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_CB1));
-			mCheckBox1.setChecked(i == 0 ? false : true);
+			mCheckBox1.setChecked(i != 0 ? true : false);
 			i = cursor.getInt(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_CB2));
-			mCheckBox2.setChecked(i == 0 ? false : true);
+			mCheckBox2.setChecked(i != 0 ? true : false);
 			i = cursor.getInt(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_CB3));
-			mCheckBox3.setChecked(i == 0 ? false : true);
+			mCheckBox3.setChecked(i != 0 ? true : false);
 			i = cursor.getInt(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_CB4));
-			mCheckBox4.setChecked(i == 0 ? false : true);
+			mCheckBox4.setChecked(i != 0 ? true : false);
 
 			// always close the cursor
 			cursor.close();
