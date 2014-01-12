@@ -10,10 +10,10 @@
     <string name="menu1_button2_text">Learning</string>
     <string name="title_activity_clinical_menu">Clinical Menu</string>
     <string name="title_activity_learning_menu">Learning Menu</string>
-    <string name="title_clinical_menu">Clinical Menu</string><string name="button_clinical_educ">Patient\nEducation</string><string name="button_clincal_diag">Diagnosis</string><string name="button_clinical_assess">Clincal\nAssessment</string>
-    
-    
-    
+    <string name="title_clinical_menu">Clinical Menu</string>
+    <string name="button_clinical_educ">Patient\nEducation</string>
+    <string name="button_clincal_diag">Diagnosis</string>
+    <string name="button_clinical_assess">Clincal\nAssessment</string>
     <string name="title_activity_clinical_assessment">Clinical Assessment</string>
     <string name="title_activity_clinical_diagnosis">Clinical Diagnosis</string>
     <string name="title_activity_clinical_patient_ed">Clinical Patient Education</string>
@@ -21,5 +21,12 @@
     <string name="button_learn_asse">Clinical\nAssessment</string>
     <string name="button_learn_diag">Diagnosis</string>
     <string name="button_learn_educ">Patient\nEducation</string>
+    <string name="title_activity_patient_detail">PatientDetailActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_patient_list">PatientListActivity</string>
+    <string name="title_activity_patient_selection">Patient Selection</string>
+    <string name="patient_selection_tv">Patient ID: </string>
 
 </resources>

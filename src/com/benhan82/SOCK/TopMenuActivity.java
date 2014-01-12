@@ -28,7 +28,7 @@ public class TopMenuActivity extends Activity {
 	
 	public void openClinical (View v) {
 		// method to open the clinical mode menu
-		Intent intent = new Intent(this, ClinicalMenuActivity.class);
+		Intent intent = new Intent(this, PatientSelectionActivity.class);
 		startActivity(intent);
 	}
 	
