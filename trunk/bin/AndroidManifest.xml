@@ -48,8 +48,8 @@
         <activity
             android:name="com.benhan82.SOCK.ClinicalAssessmentActivity"
             android:label="@string/title_activity_clinical_assessment"
-            android:screenOrientation="landscape"
-            android:parentActivityName="com.benhan82.SOCK.ClinicalMenuActivity" >
+            android:parentActivityName="com.benhan82.SOCK.ClinicalMenuActivity"
+            android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.benhan82.SOCK.ClinicalMenuActivity" />
@@ -69,6 +69,18 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.benhan82.SOCK.ClinicalMenuActivity" />
+        </activity>
+        <activity
+            android:name="com.benhan82.SOCK.PatientDetailActivity"
+            android:label="@string/title_activity_patient_detail" >
+        </activity>
+        <activity
+            android:name="com.benhan82.SOCK.PatientListActivity"
+            android:label="@string/title_activity_patient_list" >
+        </activity>
+        <activity
+            android:name="com.benhan82.SOCK.PatientSelectionActivity"
+            android:label="@string/title_activity_patient_selection" >
         </activity>
     </application>
 
