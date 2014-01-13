@@ -105,7 +105,7 @@ public class TodosOverviewActivity extends ListActivity implements
 	
 	private void fillData() {
 		
-    // 	Fields from the database (projection)
+	// 	Fields from the database (projection)
     // 	Must include the _id column for the adapter to work
 		String[] from = new String[] { TodoTable.COLUMN_SUMMARY };
     // 	Fields on the UI to which we map
