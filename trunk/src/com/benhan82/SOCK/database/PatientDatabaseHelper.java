@@ -12,19 +12,15 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 
 	public PatientDatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase arg0) {
-		// TODO Auto-generated method stub
-
+	public void onCreate(SQLiteDatabase db) {
+	    PatientTable.onCreate(db);
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		PatientTable.onUpgrade(db, oldVersion, newVersion);
 	}
-
 }
