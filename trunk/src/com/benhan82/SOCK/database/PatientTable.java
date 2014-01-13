@@ -8,7 +8,7 @@ import android.util.Log;
  * 
  * PatientTable.java 
  * This class describes the main patient table that stores the data in the database.
- * This includes column declarations and the create table command for initialising 
+ * This includes column declarations and the CREATE TABLE command for initialising 
  * the table.
  *
  */

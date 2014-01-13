@@ -72,7 +72,7 @@ public class PatientListActivity extends ListActivity implements
 	// handler method called when the user clicks insert button on the menu, or the
 	// New button or Open button with a valid patient id
 	private void createPatient() {
-		Intent i = new Intent(this, PatientDetailActivity.class);
+		Intent i = new Intent(this, PatientSummaryActivity.class);
 		startActivity(i);
 	}
 	
@@ -80,7 +80,7 @@ public class PatientListActivity extends ListActivity implements
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, PatientDetailActivity.class);
+		Intent i = new Intent(this, PatientSummaryActivity.class);
 		Uri todoUri = Uri.parse(PatientContentProvider.CONTENT_URI + "/" + id);
 		i.putExtra(PatientContentProvider.CONTENT_ITEM_TYPE, todoUri);
 		

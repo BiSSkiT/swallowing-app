@@ -6,7 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 
-public class PatientDetailActivity extends Activity {
+/**
+ * @author Ben Han
+ * class PatientSummaryActivity
+ * This activity displays a summary of the patient data stored in the database.
+ *
+ */
+public class PatientSummaryActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

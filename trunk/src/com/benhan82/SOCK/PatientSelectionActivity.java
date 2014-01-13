@@ -36,7 +36,7 @@ public class PatientSelectionActivity extends Activity {
 	public void onClickNew(View view) {
 		// Create a new patient entry and open Clinical Assessment Activity
 		// TODO === call method to create new patient entry
-		Intent intent = new Intent(this, PatientDetailActivity.class);
+		Intent intent = new Intent(this, PatientSummaryActivity.class);
 		startActivity(intent);
 	}
 	
@@ -44,7 +44,7 @@ public class PatientSelectionActivity extends Activity {
 		// Open an existing patient entry and open Clinical Assessment Activity
 		
 		// TODO == call method to retrieve patient data from the database table
-		startActivity(new Intent(this, PatientDetailActivity.class));
+		startActivity(new Intent(this, PatientSummaryActivity.class));
 	}
 	
 	public void onClickBrowse(View view) {
