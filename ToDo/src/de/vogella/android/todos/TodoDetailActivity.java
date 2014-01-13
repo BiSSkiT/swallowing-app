@@ -68,6 +68,12 @@ public class TodoDetailActivity extends Activity {
     	});
 	}
 
+	/**
+	 * method fillData(Uri uri)
+	 * @param uri
+	 * Opposite of saveState, this method loads data from the database to
+	 * the view fields.
+	 */
 	private void fillData(Uri uri) {
 		String[] projection = { 
 				TodoTable.COLUMN_SUMMARY,
@@ -101,8 +107,8 @@ public class TodoDetailActivity extends Activity {
 			mBodyText.setText(cursor.getString(cursor
 					.getColumnIndexOrThrow(TodoTable.COLUMN_DESCRIPTION)));
 			
-			// if the returned values from the cursor is 0 then 
-			// setChecked(false) or else setChecked(true)
+			// if the returned values from the cursor is not 0 then 
+			// setChecked(true) or else setChecked(false)
 			int i = cursor.getInt(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_CB1));
 			mCheckBox1.setChecked(i != 0 ? true : false);
 			i = cursor.getInt(cursor.getColumnIndexOrThrow(TodoTable.COLUMN_CB2));
@@ -129,6 +135,11 @@ public class TodoDetailActivity extends Activity {
 		saveState();
 	}
 
+	/**
+	 * method saveState()
+	 * As the name implies this method is called to save the view fields to the
+	 * database by way of calls to the getContentResolver() method.
+	 */
 	private void saveState() {
 		String category = (String) mCategory.getSelectedItem();
 		String summary = mTitleText.getText().toString();
