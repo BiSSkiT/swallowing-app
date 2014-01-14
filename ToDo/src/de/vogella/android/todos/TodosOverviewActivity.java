@@ -111,6 +111,7 @@ public class TodosOverviewActivity extends ListActivity implements
     // 	Fields on the UI to which we map
 		int[] to = new int[] { R.id.label };
 		
+		// This is where the loader is initialised.
 		getLoaderManager().initLoader(0, null, this);
 		adapter = new SimpleCursorAdapter(this, R.layout.todo_row, null, from,
 				to, 0);
@@ -129,6 +130,8 @@ public class TodosOverviewActivity extends ListActivity implements
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		String[] projection = { TodoTable.COLUMN_ID, TodoTable.COLUMN_SUMMARY };
+		
+		// Instantiate a new CursorLoader, which references our ContentProvider
 		CursorLoader cursorLoader = new CursorLoader(this,
 				MyTodoContentProvider.CONTENT_URI, projection, null, null, null);
 		return cursorLoader;

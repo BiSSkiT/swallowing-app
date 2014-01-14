@@ -1,4 +1,4 @@
-package de.vogella.android.todos.database;
+ package de.vogella.android.todos.database;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
