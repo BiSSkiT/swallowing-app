@@ -20,6 +20,13 @@ import android.widget.SimpleCursorAdapter;
 import com.benhan82.SOCK.database.PatientContentProvider;
 import com.benhan82.SOCK.database.PatientTable;
 
+/**
+ * class PatientListActivity
+ * This class lists the available patients in the database. The activity is started
+ * by clicking browse in the PatientSelectionActivity.
+ * @author Ben
+ *
+ */
 public class PatientListActivity extends ListActivity implements 
 	LoaderManager.LoaderCallbacks<Cursor> {
 	private static final int DELETE_ID = Menu.FIRST + 1;

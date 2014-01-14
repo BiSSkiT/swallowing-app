@@ -4,13 +4,16 @@ import com.benhan82.SOCK.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 
-public class ClinicalMenuActivity extends Activity {
+public class ClinicalActivity extends Activity {
 
+	private Uri patientUri;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,5 +45,13 @@ public class ClinicalMenuActivity extends Activity {
 		// method to open the patient education activity
 		Intent intent = new Intent(this, ClinicalPatientEdActivity.class);
 		startActivity(intent);
+	}
+
+	public Uri getPatientUri() {
+		return patientUri;
+	}
+
+	public void setPatientUri(Uri patientUri) {
+		this.patientUri = patientUri;
 	}
 }

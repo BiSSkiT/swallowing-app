@@ -26,37 +26,37 @@
 		    android:orientation="vertical" >
 
 		    <CheckBox
-		        android:id="@+id/checkBox1"
+		        android:id="@+id/clin_asse_1a_cb04"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="Dependent for oral cares" />
 
 		    <CheckBox
-		        android:id="@+id/checkBox2"
+		        android:id="@+id/clin_asse_1a_cb05"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="Multiple medications" />
 
 		    <CheckBox
-		        android:id="@+id/checkBox3"
+		        android:id="@+id/clin_asse_1a_cb07"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="Tube fed" />
 
 		    <CheckBox
-		        android:id="@+id/checkBox4"
+		        android:id="@+id/clin_asse_1a_cb08"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="Dependent for feeding" />
 
 		    <CheckBox
-		        android:id="@+id/checkBox5"
+		        android:id="@+id/clin_asse_1a_cb11"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="Current smoker" />
 
 		    <CheckBox
-		        android:id="@+id/checkBox6"
+		        android:id="@+id/clin_asse_1a_cb09"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_marginBottom="20dp"

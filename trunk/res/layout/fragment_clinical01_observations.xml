@@ -12,7 +12,7 @@
         android:orientation="vertical" >
 
 		<TextView
-		    android:id="@+id/textView7"
+		    android:id="@+id/clin_asse_1a_tv00"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 	        android:layout_margin="20dp"
@@ -21,49 +21,49 @@
 		    android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <CheckBox
-            android:id="@+id/checkBox8"
+            android:id="@+id/clin_asse_1a_cb00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Previous dysphagia?" />
 
         <CheckBox
-            android:id="@+id/checkBox9"
+            android:id="@+id/clin_asse_1a_cb01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Respiratory status and history –\naffects the swallow/cough" />
 
         <CheckBox
-            android:id="@+id/checkBox10"
+            android:id="@+id/clin_asse_1a_cb02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Currently on a modified diet?" />
 
         <CheckBox
-            android:id="@+id/checkBox1"
+            android:id="@+id/clin_asse_1a_cb03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Alert?" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/clin_asse_1a_cb04"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NGT?" />
 
         <CheckBox
-            android:id="@+id/checkBox11"
+            android:id="@+id/clin_asse_1a_cb05"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="IVFs?" />
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/clin_asse_1a_cb06"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dry swallows – managing secretions?" />
 
         <CheckBox
-            android:id="@+id/checkBox4"
+            android:id="@+id/clin_asse_1a_cb07"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Coughs at rest?" />
@@ -73,27 +73,27 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/clin_asse_1a_tv01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Saliva:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
-                android:id="@+id/checkBox6"
+                android:id="@+id/clin_asse_1a_cb08"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Too much?" />
 
             <CheckBox
-                android:id="@+id/checkBox7"
+                android:id="@+id/clin_asse_1a_cb09"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Too little?" />
         </LinearLayout>
 
         <CheckBox
-            android:id="@+id/checkBox5"
+            android:id="@+id/clin_asse_1a_cb10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

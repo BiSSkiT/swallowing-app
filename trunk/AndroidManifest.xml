@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.benhan82.SOCK.ClinicalMenuActivity"
+            android:name="com.benhan82.SOCK.ClinicalActivity"
             android:label="@string/title_activity_clinical_menu"
             android:parentActivityName="com.benhan82.SOCK.TopMenuActivity"
             android:screenOrientation="landscape" >
@@ -48,7 +48,7 @@
         <activity
             android:name="com.benhan82.SOCK.ClinicalAssessmentActivity"
             android:label="@string/title_activity_clinical_assessment"
-            android:parentActivityName="com.benhan82.SOCK.ClinicalMenuActivity"
+            android:parentActivityName="com.benhan82.SOCK.ClinicalActivity"
             android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -57,7 +57,7 @@
         <activity
             android:name="com.benhan82.SOCK.ClinicalDiagnosisActivity"
             android:label="@string/title_activity_clinical_diagnosis"
-            android:parentActivityName="com.benhan82.SOCK.ClinicalMenuActivity" >
+            android:parentActivityName="com.benhan82.SOCK.ClinicalActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.benhan82.SOCK.ClinicalMenuActivity" />
@@ -65,7 +65,7 @@
         <activity
             android:name="com.benhan82.SOCK.ClinicalPatientEdActivity"
             android:label="@string/title_activity_clinical_patient_ed"
-            android:parentActivityName="com.benhan82.SOCK.ClinicalMenuActivity" >
+            android:parentActivityName="com.benhan82.SOCK.ClinicalActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.benhan82.SOCK.ClinicalMenuActivity" />

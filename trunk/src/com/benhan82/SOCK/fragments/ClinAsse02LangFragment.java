@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 
 import com.benhan82.SOCK.R;
 
-
-public class ClinOralTrialsFragment extends Fragment {
+public class ClinAsse02LangFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_clinical06_oral_trials, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_clinical02_langmore, container, false);
 		return rootView;
 	}
 }

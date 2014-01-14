@@ -1,10 +1,22 @@
 package com.benhan82.SOCK;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
+import com.benhan82.SOCK.database.PatientContentProvider;
+import com.benhan82.SOCK.database.PatientTable;
+
+
 
 /**
  * @author Ben Han
@@ -13,13 +25,45 @@ import android.support.v4.app.NavUtils;
  *
  */
 public class PatientSummaryActivity extends Activity {
+	private EditText mIdText;
+	private EditText mSummaryText;
+	private CheckBox mCheckBox1, mCheckBox2, mCheckBox3, mCheckBox4;
 
+	// todoUri is a handle for the PatientContentProvider from the saved instance
+	private Uri todoUri;
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_patient_detail);
+	protected void onCreate(Bundle bundle) {		
+		super.onCreate(bundle);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		mIdText = (EditText) findViewById(R.id.patientIdText);
+		mSummaryText = (EditText) findViewById(R.id.patientSummaryText);
+		mCheckBox1 = (CheckBox) findViewById(R.id.clin_asse_1a_cb04);
+		mCheckBox2 = (CheckBox) findViewById(R.id.clin_asse_1a_cb05);
+		mCheckBox3 = (CheckBox) findViewById(R.id.clin_asse_1a_cb07);
+		Button doneButton = (Button) findViewById(R.id.doneButton);
+		
+		Bundle extras = getIntent().getExtras();
+		
+		// check from the saved Instance
+		todoUri	 = (bundle == null) ? null : 
+			(Uri) bundle.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
+    
+		// Or passed from the other activity
+    	if (extras != null) {
+    		todoUri = extras.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
+
+    		fillData(todoUri);
+    	}
+
+    	doneButton.setOnClickListener(new View.OnClickListener() {
+    		public void onClick(View view) {
+				setResult(RESULT_OK);
+				finish();
+    		}
+    	});
 	}
 
 	/**
@@ -55,4 +99,93 @@ public class PatientSummaryActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		saveState();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		saveState();
+		outState.putParcelable(PatientContentProvider.CONTENT_ITEM_TYPE, todoUri);		
+	}
+	
+
+	/**
+	 * method fillData(Uri uri)
+	 * @param uri
+	 * Opposite of saveState, this method loads data from the database to
+	 * the view fields.
+	 */
+	private void fillData(Uri uri) {
+		String[] projection = { 
+				PatientTable.COLUMN_ID, 
+				PatientTable.COLUMN_SUMMARY,
+				PatientTable.COLUMN_CB1, 
+				PatientTable.COLUMN_CB2, 
+				PatientTable.COLUMN_CB3 };
+		
+		// Get a cursor to access the table
+		Cursor cursor = getContentResolver().query(uri, projection, null, null,
+				null);
+		// if the entry exists in the database
+		if (cursor != null) {
+			cursor.moveToFirst();
+			
+			mIdText.setText(cursor.getString(cursor
+					.getColumnIndexOrThrow(PatientTable.COLUMN_ID)));
+			mSummaryText.setText(cursor.getString(cursor
+					.getColumnIndexOrThrow(PatientTable.COLUMN_SUMMARY)));
+			
+			// if the returned values from the cursor is not 0 then 
+			// setChecked(true) or else setChecked(false)
+			int i = cursor.getInt(cursor.getColumnIndexOrThrow(PatientTable.COLUMN_CB1));
+			mCheckBox1.setChecked(i != 0 ? true : false);
+			i = cursor.getInt(cursor.getColumnIndexOrThrow(PatientTable.COLUMN_CB2));
+			mCheckBox2.setChecked(i != 0 ? true : false);
+			i = cursor.getInt(cursor.getColumnIndexOrThrow(PatientTable.COLUMN_CB3));
+			mCheckBox3.setChecked(i != 0 ? true : false);
+
+			// always close the cursor
+			cursor.close();
+		}
+	}
+
+	/**
+	 * method saveState()
+	 * As the name implies this method is called to save the view fields to the
+	 * database by way of calls to the getContentResolver() method.
+	 */
+	private void saveState() {
+		String id = mIdText.getText().toString();
+		String summary = mSummaryText.getText().toString();
+		boolean checkbox1 = mCheckBox1.isChecked();
+		boolean checkbox2 = mCheckBox2.isChecked();
+		boolean checkbox3 = mCheckBox3.isChecked();
+		
+		// only save if either summary or description
+		// is available
+		if (id.length() == 0 && id.length() == 0) {
+			return;
+		}
+
+		ContentValues values = new ContentValues();
+		values.put(PatientTable.COLUMN_ID, id);
+		values.put(PatientTable.COLUMN_SUMMARY, summary);
+		values.put(PatientTable.COLUMN_CB1, (checkbox1 ? true : false) );
+		values.put(PatientTable.COLUMN_CB2, (checkbox2 ? true : false) );
+		values.put(PatientTable.COLUMN_CB3, (checkbox3 ? true : false) );
+		
+		if (todoUri == null) {
+			// 	New patient
+			todoUri = getContentResolver().insert(PatientContentProvider.CONTENT_URI, values);
+		} else {
+			// 	Update patient
+			getContentResolver().update(todoUri, values, null, null);
+		}
+	}
+	
 }

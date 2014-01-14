@@ -2,6 +2,7 @@ package com.benhan82.SOCK;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,22 +16,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.benhan82.SOCK.fragments.ClinLangmoreFragment;
-import com.benhan82.SOCK.fragments.ClinObservationsFragment;
-import com.benhan82.SOCK.fragments.ClinOralTrialsFragment;
-import com.benhan82.SOCK.fragments.ClinTomassFragment;
-import com.benhan82.SOCK.fragments.ClinWaterSwallowFragment;
+import com.benhan82.SOCK.fragments.ClinAsse02LangFragment;
+import com.benhan82.SOCK.fragments.ClinAsse01ObseFragment;
+import com.benhan82.SOCK.fragments.ClinAsse06OralFragment;
+import com.benhan82.SOCK.fragments.ClinAsse05TomaFragment;
+import com.benhan82.SOCK.fragments.ClinAsse04WateFragment;
 import com.benhan82.SOCK.fragments.Cn05bFragment;
 import com.benhan82.SOCK.fragments.Cn05cFragment;
 import com.benhan82.SOCK.fragments.Cn07aFragment;
-import com.benhan82.SOCK.fragments.CnParentFragment;
+import com.benhan82.SOCK.fragments.ClinAsse03CnFragment;
 
 public class ClinicalAssessmentActivity extends FragmentActivity {
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;						//subclass of ViewGroup, holds fragments
-	private CnParentFragment cnParentFragment = null;	//holds child fragments for navigation within tab
+	private ClinAsse03CnFragment cnParentFragment = null;	//holds child fragments for navigation within tab
 	private int currentTab;
+	private Uri patientUri;
 	
     // Tab titles
     private String[] tabs = { "Observations", "Langmore", "CN exam", "Water Swallow", "TOMASS", "Oral Trials" };
@@ -143,7 +145,7 @@ public class ClinicalAssessmentActivity extends FragmentActivity {
 	 ***********************************************/
 	
 	// cnFragmentContainer is the id of the sole layout in fragment_clinical_03_cn_exam.xml used by
-	// CnParentFragment.java
+	// ClinAsse03CnFragment.java
 	public void cn05WNL(View v) {
 		// Skip to slide 11 (CN7)
 		FragmentTransaction ft = cnParentFragment.getChildFragmentManager().beginTransaction();
@@ -189,21 +191,21 @@ public class ClinicalAssessmentActivity extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 	        switch (position) {
 	        case 0:
-	            return new ClinObservationsFragment();
+	            return new ClinAsse01ObseFragment();
 	        case 1:
-	            return new ClinLangmoreFragment();
+	            return new ClinAsse02LangFragment();
 	        case 2:
 	        	if (cnParentFragment == null)
-	        		cnParentFragment = new CnParentFragment(); 
+	        		cnParentFragment = new ClinAsse03CnFragment(); 
 	        	else
 	        		return cnParentFragment;
 	        	return cnParentFragment; 
 	        case 3:
-	        	return new ClinWaterSwallowFragment();
+	        	return new ClinAsse04WateFragment();
 	        case 4:
-	        	return new ClinTomassFragment();
+	        	return new ClinAsse05TomaFragment();
 	        case 5:
-	        	return new ClinOralTrialsFragment();
+	        	return new ClinAsse06OralFragment();
 	        }
 	 
 	        return null;
