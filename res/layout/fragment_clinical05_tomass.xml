@@ -25,7 +25,7 @@
 	        android:layout_gravity="center_horizontal" >
 	
 	        <CheckBox
-	            android:id="@+id/checkBox1"
+	            android:id="@+id/clin_asse_1a_cb04"
 	            android:layout_width="100dp"
 	            android:layout_height="wrap_content"
 	            android:layout_marginRight="20dp"
@@ -34,7 +34,7 @@
 	        	android:layout_gravity="center_horizontal" />
 	
 	        <CheckBox
-	            android:id="@+id/checkBox2"
+	            android:id="@+id/clin_asse_1a_cb05"
 	            android:layout_width="100dp"
 	            android:layout_height="wrap_content"
 	            android:layout_marginLeft="20dp"
@@ -149,7 +149,7 @@
 	                android:text="" />
 	
 	            <TextView
-	                android:id="@+id/textView7"
+	                android:id="@+id/clin_asse_1a_tv01"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_weight="2"

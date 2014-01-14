@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.benhan82.SOCK.R;
 
-public class CnParentFragment extends Fragment {
+public class ClinAsse03CnFragment extends Fragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

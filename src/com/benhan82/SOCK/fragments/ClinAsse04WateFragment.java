@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.benhan82.SOCK.R;
 
 
-public class ClinWaterSwallowFragment extends Fragment {
+public class ClinAsse04WateFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

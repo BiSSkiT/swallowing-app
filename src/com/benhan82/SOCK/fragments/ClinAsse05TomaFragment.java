@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.benhan82.SOCK.R;
 
-public class ClinTomassFragment extends Fragment {
+public class ClinAsse05TomaFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

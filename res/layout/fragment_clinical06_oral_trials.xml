@@ -37,37 +37,37 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
-                android:id="@+id/checkBox1"
+                android:id="@+id/clin_asse_1a_cb04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Inability to accept food" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/clin_asse_1a_cb05"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Impaired mastication" />
 
             <CheckBox
-                android:id="@+id/checkBox3"
+                android:id="@+id/clin_asse_1a_cb07"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Decreased manipulation and bolus formation" />
 
             <CheckBox
-                android:id="@+id/checkBox4"
+                android:id="@+id/clin_asse_1a_cb08"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Impaired transfer of the bolus" />
 
             <CheckBox
-                android:id="@+id/checkBox5"
+                android:id="@+id/clin_asse_1a_cb11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pocketing in cheeks or under tongue" />
 
             <CheckBox
-                android:id="@+id/checkBox6"
+                android:id="@+id/clin_asse_1a_cb09"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reduced lingual sweep and awareness of residual" />
@@ -89,25 +89,25 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
-                android:id="@+id/checkBox7"
+                android:id="@+id/clin_asse_1a_cb10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Struggling on liquids and more competent on solids" />
 
             <CheckBox
-                android:id="@+id/checkBox8"
+                android:id="@+id/clin_asse_1a_cb01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Check with palpation and cervical auscultation" />
 
             <CheckBox
-                android:id="@+id/checkBox9"
+                android:id="@+id/clin_asse_1a_cb02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Preswallow coughing or vocal changes (may be from oral phase)" />
 
             <CheckBox
-                android:id="@+id/checkBox10"
+                android:id="@+id/clin_asse_1a_cb03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3 second prep" />
@@ -130,7 +130,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
-                android:id="@+id/checkBox11"
+                android:id="@+id/clin_asse_1a_cb06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Poor laryngeal excursion" />

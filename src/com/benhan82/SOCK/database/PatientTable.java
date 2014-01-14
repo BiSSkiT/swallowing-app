@@ -23,14 +23,14 @@ public class PatientTable {
 	public static final String COLUMN_CB3 = "CB3";
 	
 	// Database creation SQL statement
-	private static final String DATABASE_CREATE = "create table " 
+	private static final String DATABASE_CREATE = "create table "
 			+ TABLE_PATIENTS
-			+ "(" 
-			+ COLUMN_ID + " integer primary key autoincrement," 
-			+ COLUMN_SUMMARY + " text not null,"
-			+ COLUMN_CB1 + " integer not null," 
-			+ COLUMN_CB2 + " integer not null,"
-			+ COLUMN_CB3 + " integer not null,"
+			+ "("
+			+ COLUMN_ID + " integer primary key autoincrement,"
+			+ COLUMN_SUMMARY + " text,"
+			+ COLUMN_CB1 + " integer,"
+			+ COLUMN_CB2 + " integer,"
+			+ COLUMN_CB3 + " integer"
 			+ ");";
 	
 	public static void onCreate(SQLiteDatabase database) {

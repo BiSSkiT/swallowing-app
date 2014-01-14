@@ -16,9 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.benhan82.SOCK.fragments.ClinLangmoreFragment;
-import com.benhan82.SOCK.fragments.ClinObservationsFragment;
-import com.benhan82.SOCK.fragments.CnParentFragment;
+import com.benhan82.SOCK.fragments.ClinAsse02LangFragment;
+import com.benhan82.SOCK.fragments.ClinAsse01ObseFragment;
+import com.benhan82.SOCK.fragments.ClinAsse03CnFragment;
 
 public class ClinicalDiagnosisActivity extends FragmentActivity implements 
 	ActionBar.TabListener {
@@ -137,11 +137,11 @@ public class ClinicalDiagnosisActivity extends FragmentActivity implements
 			// getItem is called to instantiate the fragment for the given page.
 	        switch (position) {
 		        case 0:
-		            return new ClinObservationsFragment();
+		            return new ClinAsse01ObseFragment();
 		        case 1:
-		            return new ClinLangmoreFragment();
+		            return new ClinAsse02LangFragment();
 		        case 2:
-		        	cnTopFragment = new CnParentFragment();
+		        	cnTopFragment = new ClinAsse03CnFragment();
 		        	return cnTopFragment;
 		        case 3:
 		        	return new WaterSwallowFragment();
