@@ -7,7 +7,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.Window;
 
-public class LearningMenuActivity extends Activity {
+public class LearningActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
