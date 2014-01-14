@@ -171,10 +171,18 @@ public class ClinicalAssessmentActivity extends FragmentActivity {
 		ft.addToBackStack(null);
 		ft.commit();
 	}
+
 	
-	
-	
-	
+
+	public Uri getPatientUri() {
+		return patientUri;
+	}
+
+	public void setPatientUri(Uri patientUri) {
+		this.patientUri = patientUri;
+	}
+
+
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
