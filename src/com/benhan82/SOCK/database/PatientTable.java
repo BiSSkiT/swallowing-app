@@ -45,4 +45,6 @@ public class PatientTable {
 		database.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENTS);
 		onCreate(database);
 	}
+	
+	public void addPatient(){}
 }
