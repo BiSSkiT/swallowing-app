@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.benhan82.SOCK.database.PatientContentProvider;
-
 public class PatientSelectionActivity extends Activity {
 	
 	@Override
@@ -27,15 +25,14 @@ public class PatientSelectionActivity extends Activity {
 	
 	public void onClickNew(View view) {
 		// Open Clinical Assessment Activity
-		Intent intent = new Intent(this, ClinicalAssessmentActivity.class);
+		Intent intent = new Intent(this, ClinicalActivity.class);
 		startActivity(intent);
 	}
 	
 	public void onClickOpen(View view) {
 		// Open an existing patient entry and open Patient Summary Activity
-		
-		// TODO == call method to retrieve patient data from the database table
-		startActivity(new Intent(this, PatientSummaryActivity.class));
+		Intent intent = new Intent(this, PatientSummaryActivity.class);
+		startActivity(intent);
 	}
 	
 	public void onClickBrowse(View view) {

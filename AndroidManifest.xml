@@ -79,10 +79,7 @@
             android:label="@string/title_activity_patient_selection" >
         </activity>
 
-        <provider
-            android:name="com.benhan82.SOCK.database.PatientContentProvider"
-            android:authorities="com.benhan82.SOCK.database" >
-        </provider>
+
 
         <activity
             android:name="com.benhan82.SOCK.PatientSummaryActivity"
