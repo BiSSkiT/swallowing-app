@@ -24,7 +24,7 @@ public class SplashActivity extends Activity {
 		ourSong = MediaPlayer.create(SplashActivity.this, R.raw.swallow);
 		ourSong.start();
 
-		//Open the TopMenuActivity in a new thread
+		//Open the StartMenuActivity in a new thread
 		Thread timer = new Thread() {
 			public void run() {
 				try {

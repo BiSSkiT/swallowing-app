@@ -3,7 +3,7 @@ package com.benhan82.SOCK.database;
 public class Patient {
 	
 	private int id;
-	private String summary;
+	private String notes;
 	private String firstName;
 	private String lastName;
 	private boolean checkBoxes[] = new boolean[10];
@@ -12,15 +12,18 @@ public class Patient {
 	
 	public Patient() {}	
 	
+	// Standard constructor, these are the minimum detail for new patients. 
+	// Maybe include a Notes section?
+	
 	public Patient(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
-		this.lastName = lastName;
-		
+		this.lastName = lastName;		
 	}
 	
 	public String toString() {
-		return "Patient [id=" + id + ", first name=" + firstName + ", lastName" + "]";
+		return "Patient [id=" + id + ", first name=" + firstName + 
+				", lastName=" + lastName + "]";
 	}
 	
 	// Getters and setters
@@ -33,12 +36,12 @@ public class Patient {
 		this.id = id;
 	}
 
-	public String getSummary() {
-		return summary;
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setSummary(String summary) {
-		this.summary = summary;
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	public String getFirstName() {
