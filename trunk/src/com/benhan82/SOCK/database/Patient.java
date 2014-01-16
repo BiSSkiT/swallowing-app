@@ -3,6 +3,7 @@ package com.benhan82.SOCK.database;
 public class Patient {
 	
 	private int id;
+	private String summary;
 	private String firstName;
 	private String lastName;
 	private boolean checkBoxes[] = new boolean[10];
@@ -32,6 +33,14 @@ public class Patient {
 		this.id = id;
 	}
 
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -46,6 +55,14 @@ public class Patient {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public boolean[] getCheckBoxes() {
+		return checkBoxes;
+	}
+
+	public void setCheckBoxes(boolean[] checkBoxes) {
+		this.checkBoxes = checkBoxes;
 	}
 	
 	

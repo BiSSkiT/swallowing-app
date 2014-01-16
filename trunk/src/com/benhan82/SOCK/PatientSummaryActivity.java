@@ -13,10 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.benhan82.SOCK.database.PatientContentProvider;
-import com.benhan82.SOCK.database.PatientTable;
-
-
+import com.benhan82.SOCK.database.PatientDatabaseHelper;
 
 /**
  * @author Ben Han
@@ -28,6 +25,7 @@ public class PatientSummaryActivity extends Activity {
 	private EditText mIdText;
 	private EditText mSummaryText;
 	private CheckBox mCheckBox1, mCheckBox2, mCheckBox3, mCheckBox4;
+	private PatientDatabaseHelper db = MyApp.db;
 
 	// todoUri is a handle for the PatientContentProvider from the saved instance
 	private Uri todoUri;
@@ -47,16 +45,16 @@ public class PatientSummaryActivity extends Activity {
 		
 		Bundle extras = getIntent().getExtras();
 		
-		// check from the saved Instance
-		todoUri	 = (bundle == null) ? null : 
-			(Uri) bundle.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
-    
-		// Or passed from the other activity
-    	if (extras != null) {
-    		todoUri = extras.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
-
-    		fillData(todoUri);
-    	}
+//		// check from the saved Instance
+//		todoUri	 = (bundle == null) ? null : 
+//			(Uri) bundle.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
+//    
+//		// Or passed from the other activity
+//    	if (extras != null) {
+//    		todoUri = extras.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
+//
+//    		fillData(todoUri);
+//    	}
 
     	doneButton.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View view) {
@@ -110,7 +108,7 @@ public class PatientSummaryActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
 		saveState();
-		outState.putParcelable(PatientContentProvider.CONTENT_ITEM_TYPE, todoUri);		
+//		outState.putParcelable(PatientContentProvider.CONTENT_ITEM_TYPE, todoUri);		
 	}
 	
 
@@ -122,11 +120,11 @@ public class PatientSummaryActivity extends Activity {
 	 */
 	private void fillData(Uri uri) {
 		String[] projection = { 
-				PatientTable.COLUMN_ID, 
-				PatientTable.COLUMN_SUMMARY,
-				PatientTable.COLUMN_CB1, 
-				PatientTable.COLUMN_CB2, 
-				PatientTable.COLUMN_CB3 };
+				PatientDatabaseHelper.COLUMN_ID, 
+				PatientDatabaseHelper.COLUMN_SUMMARY,
+				PatientDatabaseHelper.COLUMN_CB1, 
+				PatientDatabaseHelper.COLUMN_CB2, 
+				PatientDatabaseHelper.COLUMN_CB3 };
 		
 		// Get a cursor to access the table
 		Cursor cursor = getContentResolver().query(uri, projection, null, null,
@@ -136,17 +134,17 @@ public class PatientSummaryActivity extends Activity {
 			cursor.moveToFirst();
 			
 			mIdText.setText(cursor.getString(cursor
-					.getColumnIndexOrThrow(PatientTable.COLUMN_ID)));
+					.getColumnIndexOrThrow(db.COLUMN_ID)));
 			mSummaryText.setText(cursor.getString(cursor
-					.getColumnIndexOrThrow(PatientTable.COLUMN_SUMMARY)));
+					.getColumnIndexOrThrow(db.COLUMN_SUMMARY)));
 			
 			// if the returned values from the cursor is not 0 then 
 			// setChecked(true) or else setChecked(false)
-			int i = cursor.getInt(cursor.getColumnIndexOrThrow(PatientTable.COLUMN_CB1));
+			int i = cursor.getInt(cursor.getColumnIndexOrThrow(db.COLUMN_CB1));
 			mCheckBox1.setChecked(i != 0 ? true : false);
-			i = cursor.getInt(cursor.getColumnIndexOrThrow(PatientTable.COLUMN_CB2));
+			i = cursor.getInt(cursor.getColumnIndexOrThrow(db.COLUMN_CB2));
 			mCheckBox2.setChecked(i != 0 ? true : false);
-			i = cursor.getInt(cursor.getColumnIndexOrThrow(PatientTable.COLUMN_CB3));
+			i = cursor.getInt(cursor.getColumnIndexOrThrow(db.COLUMN_CB3));
 			mCheckBox3.setChecked(i != 0 ? true : false);
 
 			// always close the cursor
@@ -173,15 +171,15 @@ public class PatientSummaryActivity extends Activity {
 		}
 
 		ContentValues values = new ContentValues();
-		values.put(PatientTable.COLUMN_ID, id);
-		values.put(PatientTable.COLUMN_SUMMARY, summary);
-		values.put(PatientTable.COLUMN_CB1, (checkbox1 ? true : false) );
-		values.put(PatientTable.COLUMN_CB2, (checkbox2 ? true : false) );
-		values.put(PatientTable.COLUMN_CB3, (checkbox3 ? true : false) );
+		values.put(db.COLUMN_ID, id);
+		values.put(db.COLUMN_SUMMARY, summary);
+		values.put(db.COLUMN_CB1, (checkbox1 ? true : false) );
+		values.put(db.COLUMN_CB2, (checkbox2 ? true : false) );
+		values.put(db.COLUMN_CB3, (checkbox3 ? true : false) );
 		
 		if (todoUri == null) {
 			// 	New patient
-			todoUri = getContentResolver().insert(PatientContentProvider.CONTENT_URI, values);
+//			todoUri = getContentResolver().insert(PatientContentProvider.CONTENT_URI, values);
 		} else {
 			// 	Update patient
 			getContentResolver().update(todoUri, values, null, null);
