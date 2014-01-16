@@ -13,7 +13,6 @@ import android.util.Log;
 	
 public class PatientDatabaseHelper extends SQLiteOpenHelper {
 
-	public static PatientDatabaseHelper db;
 	private static final String DATABASE_NAME = "patients.db";
 	private static final int DATABASE_VERSION = 1;
 	
@@ -91,7 +90,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 		
     	// create ContentValues to add key "column"/value
     	ContentValues values = new ContentValues();
-    	values.put(COLUMN_SUMMARY, patient.getSummary());
+    	values.put(COLUMN_SUMMARY, patient.getNotes());
     	values.put(COLUMN_FIRSTNAME, patient.getFirstName());
     	values.put(COLUMN_LASTNAME, patient.getLastName());
     	// get a reference to the boolean array
@@ -124,7 +123,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = 
                 db.query(TABLE_PATIENTS, // a. table
                 COLUMNS, // b. column names
-                " id = ?", // c. selections 
+                " _id = ?", // c. selections 
                 new String[] { String.valueOf(id) }, // d. selections args
                 null, // e. group by
                 null, // f. having
@@ -137,8 +136,15 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         
         // build a new patient object
         Patient p = new Patient();
-        p.setId(cursor.getInt(0));
-        p.setSummary(cursor.getString(1));
+        
+        try {
+			p.setId(cursor.getInt(0));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Log.d("exception", e.getMessage());
+			e.printStackTrace();
+		}
+        p.setNotes(cursor.getString(1));
         p.setFirstName(cursor.getString(2));
         p.setLastName(cursor.getString(3));
         // recreate the check box array by iterating through the columns
@@ -172,7 +178,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
             do {
             	p = new Patient();
                 p.setId(cursor.getInt(0));
-                p.setSummary(cursor.getString(1));
+                p.setNotes(cursor.getString(1));
                 p.setFirstName(cursor.getString(2));
                 p.setLastName(cursor.getString(3));
                 // recreate the check box array by iterating through the columns
@@ -201,7 +207,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
      
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-    	values.put(COLUMN_SUMMARY, patient.getSummary());
+    	values.put(COLUMN_SUMMARY, patient.getNotes());
     	values.put(COLUMN_FIRSTNAME, patient.getFirstName());
     	values.put(COLUMN_LASTNAME, patient.getLastName());
     	// create boolean array
@@ -232,22 +238,21 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         return i;
 	}
 	
-	public void deletePatient(Patient patient) {
+	public void deletePatient(int id) {
 
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
  
         // 2. delete
+        Log.d("deletePatient", getPatient(id).toString());
+        
         db.delete(TABLE_PATIENTS, //table name
         		COLUMN_ID + " = ?",  // selections
-                new String[] { String.valueOf(patient.getId()) }); //selections args
+                new String[] { String.valueOf(id) }); //selections args
  
         // 3. close
         db.close();
  
-        //log
-        Log.d("deletePatient", patient.toString());
-		
 	}
 	
 	
