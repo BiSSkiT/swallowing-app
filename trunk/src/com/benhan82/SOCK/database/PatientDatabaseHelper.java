@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -18,11 +19,11 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 	
 	// Database table
 	public static final String TABLE_PATIENTS = "patients";
-	public static final String COLUMN_ID = "_id";
-	public static final String COLUMN_SUMMARY = "SUMMARY";
-	public static final String COLUMN_FIRSTNAME = "FIRSTNAME";
-	public static final String COLUMN_LASTNAME = "LASTNAME";
-	public static final String COLUMN_CB1 = "CB1";
+	public static final String COLUMN_ID = "ID";				//0
+	public static final String COLUMN_SUMMARY = "SUMMARY";		//1
+	public static final String COLUMN_FIRSTNAME = "FIRSTNAME";	//2
+	public static final String COLUMN_LASTNAME = "LASTNAME";	//3
+	public static final String COLUMN_CB1 = "CB1";				//4
 	public static final String COLUMN_CB2 = "CB2";
 	public static final String COLUMN_CB3 = "CB3";
 	public static final String COLUMN_CB4 = "CB4";
@@ -37,6 +38,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 		COLUMN_CB4,COLUMN_CB5,COLUMN_CB6,COLUMN_CB7,COLUMN_CB8,COLUMN_CB9,COLUMN_CB1};
 	
 	private static final int SIZE_OF_CB_ARRAY = 10;
+	private static final int CB_OFFSET = 4;
 	
 	// Database creation SQL statement
 	private static final String DATABASE_CREATE = "create table "
@@ -83,7 +85,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 	public void addPatient(Patient patient) {
 
 		// log transaction
-		Log.d("addPatient", patient.toString());
+		Log.d("patient", "addPatient," + patient.toString());
 		
 		// get reference to database
     	SQLiteDatabase db = getWritableDatabase();
@@ -123,7 +125,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = 
                 db.query(TABLE_PATIENTS, // a. table
                 COLUMNS, // b. column names
-                " _id = ?", // c. selections 
+                " " + COLUMN_ID + " = ?", // c. selections 
                 new String[] { String.valueOf(id) }, // d. selections args
                 null, // e. group by
                 null, // f. having
@@ -138,31 +140,44 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         Patient p = new Patient();
         
         try {
-			p.setId(cursor.getInt(0));
+        	String[] sa = cursor.getColumnNames();
+        	
+        	int idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
+        	int notesIndex = cursor.getColumnIndexOrThrow(COLUMN_SUMMARY);
+        	int firstIndex = cursor.getColumnIndexOrThrow(COLUMN_FIRSTNAME);
+        	int lastIndex = cursor.getColumnIndexOrThrow(COLUMN_LASTNAME);
+        	
+			p.setId(cursor.getInt(idIndex));
+	        p.setNotes(cursor.getString(notesIndex));
+	        p.setFirstName(cursor.getString(firstIndex));
+	        p.setLastName(cursor.getString(lastIndex));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Log.d("exception", e.getMessage());
 			e.printStackTrace();
 		}
-        p.setNotes(cursor.getString(1));
-        p.setFirstName(cursor.getString(2));
-        p.setLastName(cursor.getString(3));
         // recreate the check box array by iterating through the columns
         // if cursor.getInt(i) returns non-zero, then set the corresponding array 
         // element to true, otherwise false.
         boolean checkBoxes[] = new boolean[SIZE_OF_CB_ARRAY];
         for (int i=0; i<SIZE_OF_CB_ARRAY; i++) {
-        	checkBoxes[i] = cursor.getInt(i)!=0 ? true : false;
+        	
+        	try {
+				checkBoxes[i] = cursor.getInt(i)!=0 ? true : false;
+			} catch (Exception e) {
+				Log.d("exception", e.getMessage());
+				e.printStackTrace();
+			}
         }
         p.setCheckBoxes(checkBoxes);
         
         //log 
-        Log.d("getPatient("+id+")", p.toString());
+        Log.d("patient", "getPatient("+id+")" + p.toString());
         
         return p;
 	}
 	
-	public List<Patient> getAllPatients(Patient patient) {
+	public List<Patient> getAllPatients() {
 		List<Patient> patients = new LinkedList<Patient>();
 		  
         // 1. build the query
@@ -186,7 +201,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
                 // element to true, otherwise false.
                 boolean checkBoxes[] = new boolean[SIZE_OF_CB_ARRAY];
                 for (int i=0; i<SIZE_OF_CB_ARRAY; i++) {
-                	checkBoxes[i] = cursor.getInt(i)!=0 ? true : false;
+                	checkBoxes[i] = cursor.getInt(i + CB_OFFSET)!=0 ? true : false;
                 }
                 p.setCheckBoxes(checkBoxes);
   
@@ -195,7 +210,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        Log.d("getAllPatients", patients.toString());
+        Log.d("patient", "getAllPatients: " + patients.toString());
   
         return patients;
 	}
@@ -233,7 +248,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         // 4. close
         db.close();
         
-        Log.d("updatePatient", patient.toString());
+        Log.d("updatePatient", "updatePatient" + patient.toString());
         
         return i;
 	}
@@ -244,7 +259,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
  
         // 2. delete
-        Log.d("deletePatient", getPatient(id).toString());
+        Log.d("patient", "deletePatient" + getPatient(id).toString());
         
         db.delete(TABLE_PATIENTS, //table name
         		COLUMN_ID + " = ?",  // selections
@@ -253,6 +268,18 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         // 3. close
         db.close();
  
+	}
+	
+	public void clearTable() {
+		try {
+			SQLiteDatabase db = this.getWritableDatabase();
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENTS);
+			onCreate(db);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			Log.d("exception", e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	
