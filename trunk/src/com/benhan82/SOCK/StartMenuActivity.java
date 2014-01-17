@@ -77,14 +77,22 @@ public class StartMenuActivity extends Activity {
 		// Verify that the database has all the patients loaded
 		List<Patient> list = db.getAllPatients();
 		
+		// BUG HERE
+		Patient p = db.getPatient(0);
+		p = db.getPatient(1);
+		p = db.getPatient(2);
+		p = db.getPatient(3);
+		p = db.getPatient(4);
+		
+		
 		try {
 			// this should swap patients 2 and 5, and 3 and 4
-			Patient temp = patient4;
-			patient4 = list.get(2);
-			patient3 = temp;
-			temp = patient2;
-			patient2 = list.get(list.size()-1);
-			patient5 = temp;
+//			Patient temp = patient4;
+//			patient4 = list.get(2);
+//			patient3 = temp;
+//			temp = patient2;
+//			patient2 = list.get(list.size()-1);
+//			patient5 = temp;
 		} catch (Exception e) {
 			Log.d("exception", e.getMessage());
 			e.printStackTrace();

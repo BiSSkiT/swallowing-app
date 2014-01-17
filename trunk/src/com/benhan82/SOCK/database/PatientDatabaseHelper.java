@@ -20,7 +20,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 	// Database table
 	public static final String TABLE_PATIENTS = "patients";
 	public static final String COLUMN_ID = "ID";				//0
-	public static final String COLUMN_SUMMARY = "SUMMARY";		//1
+	public static final String COLUMN_NOTES = "NOTES";			//1
 	public static final String COLUMN_FIRSTNAME = "FIRSTNAME";	//2
 	public static final String COLUMN_LASTNAME = "LASTNAME";	//3
 	public static final String COLUMN_CB1 = "CB1";				//4
@@ -34,8 +34,21 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_CB9 = "CB9";
 	public static final String COLUMN_CB10 = "CB10";
 	
-	private static final String[] COLUMNS = {COLUMN_CB1,COLUMN_CB2,COLUMN_CB3,
-		COLUMN_CB4,COLUMN_CB5,COLUMN_CB6,COLUMN_CB7,COLUMN_CB8,COLUMN_CB9,COLUMN_CB1};
+	private static final String[] COLUMNS = {
+		COLUMN_ID,			// column index=0
+		COLUMN_NOTES,		//1
+		COLUMN_FIRSTNAME,	//2
+		COLUMN_LASTNAME,	//3
+		COLUMN_CB1,			//4
+		COLUMN_CB2,			//5
+		COLUMN_CB3,			//6
+		COLUMN_CB4,			//7
+		COLUMN_CB5,			//8
+		COLUMN_CB6,			//9
+		COLUMN_CB7,			//10
+		COLUMN_CB8,			//11
+		COLUMN_CB9,			//12
+		COLUMN_CB10 };		//13
 	
 	private static final int SIZE_OF_CB_ARRAY = 10;
 	private static final int CB_OFFSET = 4;
@@ -45,7 +58,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 			+ TABLE_PATIENTS
 			+ "("
 			+ COLUMN_ID + " integer primary key autoincrement,"
-			+ COLUMN_SUMMARY + " text,"
+			+ COLUMN_NOTES + " text,"
 			+ COLUMN_FIRSTNAME + " text,"
 			+ COLUMN_LASTNAME + " text,"
 			+ COLUMN_CB1 + " integer,"
@@ -92,7 +105,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 		
     	// create ContentValues to add key "column"/value
     	ContentValues values = new ContentValues();
-    	values.put(COLUMN_SUMMARY, patient.getNotes());
+    	values.put(COLUMN_NOTES, patient.getNotes());
     	values.put(COLUMN_FIRSTNAME, patient.getFirstName());
     	values.put(COLUMN_LASTNAME, patient.getLastName());
     	// get a reference to the boolean array
@@ -115,44 +128,62 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
     	// close database
     	db.close(); 
 	}
-	
-	
+		
 	public Patient getPatient(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // build query
-        Cursor cursor = 
-                db.query(TABLE_PATIENTS, // a. table
-                COLUMNS, // b. column names
-                " " + COLUMN_ID + " = ?", // c. selections 
-                new String[] { String.valueOf(id) }, // d. selections args
-                null, // e. group by
-                null, // f. having
-                null, // g. order by
-                null); // h. limit
-     
+        // SQLite command string
+        String query = "SELECT * FROM "+TABLE_PATIENTS+" WHERE "+COLUMN_ID+" = "+id;
+        Log.d("patient", "The query command is: "+query);
+        
+        // query database
+        Cursor cursor = db.rawQuery(query, null);
+        
         // if we got results get the first one
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
+            Log.d("patient", Integer.toString(cursor.getCount() ) );
+        }
         
         // build a new patient object
         Patient p = new Patient();
         
-        try {
-        	String[] sa = cursor.getColumnNames();
+        try {	
+        	int idIndex, notesIndex, firstIndex, lastIndex;
+        	idIndex = notesIndex = firstIndex = lastIndex = 0;
+        	String[] data = cursor.getColumnNames();
+			
+			try {
+				String s = cursor.getString(0);		// BUG HERE SIZE 0 ARRAY
+				Log.d("patient", "i = " + s ); 
+			} catch (Exception e1) {
+				Log.d("exception", e1.getMessage());
+				e1.printStackTrace();
+			}
+			
+			for (int i=0; i<data.length; i++) {
+				Log.d("patient", data[i]);
+			}
+			try {
+				idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
+				notesIndex = cursor.getColumnIndexOrThrow(COLUMN_NOTES);
+				firstIndex = cursor.getColumnIndexOrThrow(COLUMN_FIRSTNAME);
+				lastIndex = cursor.getColumnIndexOrThrow(COLUMN_LASTNAME);
+			} catch (Exception e) {
+				Log.d("exception", e.getMessage());
+				e.printStackTrace();
+			}
         	
-        	int idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
-        	int notesIndex = cursor.getColumnIndexOrThrow(COLUMN_SUMMARY);
-        	int firstIndex = cursor.getColumnIndexOrThrow(COLUMN_FIRSTNAME);
-        	int lastIndex = cursor.getColumnIndexOrThrow(COLUMN_LASTNAME);
-        	
+			int i = cursor.getPosition();
+			cursor.moveToLast();
+			i = cursor.getPosition();
+			// BUG HERE, FIX IT!!!!!!!
 			p.setId(cursor.getInt(idIndex));
 	        p.setNotes(cursor.getString(notesIndex));
 	        p.setFirstName(cursor.getString(firstIndex));
 	        p.setLastName(cursor.getString(lastIndex));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.d("exception", e.getMessage());
 			e.printStackTrace();
 		}
@@ -181,7 +212,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 		List<Patient> patients = new LinkedList<Patient>();
 		  
         // 1. build the query
-        String query = "SELECT  * FROM " + TABLE_PATIENTS;
+        String query = "SELECT * FROM " + TABLE_PATIENTS;
   
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -222,7 +253,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
      
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-    	values.put(COLUMN_SUMMARY, patient.getNotes());
+    	values.put(COLUMN_NOTES, patient.getNotes());
     	values.put(COLUMN_FIRSTNAME, patient.getFirstName());
     	values.put(COLUMN_LASTNAME, patient.getLastName());
     	// create boolean array
@@ -281,6 +312,5 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 			e.printStackTrace();
 		}
 	}
-	
-	
+		
 }
