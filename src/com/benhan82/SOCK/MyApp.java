@@ -8,8 +8,8 @@ import com.benhan82.SOCK.database.PatientDatabaseHelper;
 
 public class MyApp extends Application {
 	
-	public static PatientDatabaseHelper db;
-	public Patient patient = null;
+	private static PatientDatabaseHelper db;
+	private static Patient patientPrivate = null;
 
 	public MyApp() {}
 
@@ -24,12 +24,20 @@ public class MyApp extends Application {
 	
 	// Getters and setters
 
-	public Patient getPatient() {
-		return patient;
+	public static Patient getPatient() {
+		return patientPrivate;
 	}
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public static void setPatient(Patient patient) {
+		patientPrivate = patient;
+	}
+
+	public static PatientDatabaseHelper getDb() {
+		return db;
+	}
+
+	public static void setDb(PatientDatabaseHelper db) {
+		MyApp.db = db;
 	}
 
 }

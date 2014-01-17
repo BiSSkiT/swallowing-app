@@ -31,7 +31,7 @@ public class PatientSelectionActivity extends Activity {
 	
 	public void onClickOpen(View view) {
 		// Open an existing patient entry and open Patient Summary Activity
-		Intent intent = new Intent(this, PatientSummaryActivity.class);
+		Intent intent = new Intent(this, PatientDetailsActivity.class);
 		startActivity(intent);
 	}
 	

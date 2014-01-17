@@ -36,7 +36,7 @@ public class PatientListActivity extends ListActivity  {
 		this.getListView().setDividerHeight(2);
 		fillData();
 		registerForContextMenu(getListView());
-		this.db = MyApp.db;
+		this.db = MyApp.getDb();
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class PatientListActivity extends ListActivity  {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, PatientSummaryActivity.class);		
+		Intent i = new Intent(this, PatientDetailsActivity.class);		
 		startActivity(i);
 	}
 	

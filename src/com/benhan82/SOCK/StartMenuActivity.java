@@ -1,8 +1,11 @@
 package com.benhan82.SOCK;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -20,7 +23,7 @@ public class StartMenuActivity extends Activity {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_top_menu);
-		this.db = MyApp.db;
+		this.db = MyApp.getDb();
 		
 		testDatabase();	// testing method for database functions
 	}
@@ -47,12 +50,51 @@ public class StartMenuActivity extends Activity {
 	private void testDatabase() {
 		// Test method for SQLiteDatabase and related classes
 		
-		Patient myPatient = new Patient("Neil", "Diamond");
-		MyApp app = (MyApp) this.getApplication();
-		app.setPatient(myPatient);
+		Patient patient1 = new Patient("1. Jessie", "Blake");
+		Patient patient2 = new Patient("2. Edward", "Charmers");
+		Patient patient3 = new Patient("3. Neil", "Diamond");
+		Patient patient4 = new Patient("4. Natalie", "Harbott");
+		Patient patient5 = new Patient("5. Ella", "Keena");
 		
-		db.addPatient(myPatient);
-		int id = myPatient.getId();
+		Log.d("patient", "Just added the following patients to the database:");
+		Log.d("patient", patient1.toString());
+		Log.d("patient", patient2.toString());
+		Log.d("patient", patient3.toString());		
+		Log.d("patient", patient4.toString());
+		Log.d("patient", patient5.toString());
+		Log.d("patient", "/n");
+		
+		// Clear out any old entries in the database table
+		db.clearTable();
+		
+		// Add our example patients
+		db.addPatient(patient1);
+		db.addPatient(patient2);
+		db.addPatient(patient3);
+		db.addPatient(patient4);
+		db.addPatient(patient5);
+		
+		// Verify that the database has all the patients loaded
+		List<Patient> list = db.getAllPatients();
+		
+		try {
+			// this should swap patients 2 and 5, and 3 and 4
+			Patient temp = patient4;
+			patient4 = list.get(2);
+			patient3 = temp;
+			temp = patient2;
+			patient2 = list.get(list.size()-1);
+			patient5 = temp;
+		} catch (Exception e) {
+			Log.d("exception", e.getMessage());
+			e.printStackTrace();
+		}
+
+		int id = patient1.getId();
+		patient1.setFirstName("bob");
+		Log.d("patient", patient1.toString());
+		Log.d("patient", db.getPatient(id).toString() );
+		Log.d("patient", "the second one is from the database");		
 		db.deletePatient(id);
 		
 	}

@@ -17,15 +17,16 @@ import com.benhan82.SOCK.database.PatientDatabaseHelper;
 
 /**
  * @author Ben Han
- * class PatientSummaryActivity
+ * class PatientDetailsActivity
  * This activity displays a summary of the patient data stored in the database.
  *
  */
-public class PatientSummaryActivity extends Activity {
+public class PatientDetailsActivity extends Activity {
+	
 	private EditText mIdText;
 	private EditText mSummaryText;
 	private CheckBox mCheckBox1, mCheckBox2, mCheckBox3, mCheckBox4;
-	private PatientDatabaseHelper db = MyApp.db;
+	private PatientDatabaseHelper db = MyApp.getDb();
 
 	// todoUri is a handle for the PatientContentProvider from the saved instance
 	private Uri todoUri;
@@ -182,7 +183,7 @@ public class PatientSummaryActivity extends Activity {
 //			todoUri = getContentResolver().insert(PatientContentProvider.CONTENT_URI, values);
 		} else {
 			// 	Update patient
-			getContentResolver().update(todoUri, values, null, null);
+			db.updatePatient(MyApp.getPatient());
 		}
 	}
 	

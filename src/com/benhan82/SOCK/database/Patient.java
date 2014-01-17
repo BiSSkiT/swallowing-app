@@ -1,5 +1,9 @@
 package com.benhan82.SOCK.database;
 
+import com.benhan82.SOCK.MyApp;
+
+import android.content.ContentValues;
+
 public class Patient {
 	
 	private int id;
@@ -7,9 +11,11 @@ public class Patient {
 	private String firstName;
 	private String lastName;
 	private boolean checkBoxes[] = new boolean[10];
+	private ContentValues cv;
 	
 	
 	
+
 	public Patient() {}	
 	
 	// Standard constructor, these are the minimum detail for new patients. 
@@ -18,7 +24,8 @@ public class Patient {
 	public Patient(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
-		this.lastName = lastName;		
+		this.lastName = lastName;
+		MyApp.setPatient(this);
 	}
 	
 	public String toString() {
@@ -67,6 +74,13 @@ public class Patient {
 	public void setCheckBoxes(boolean[] checkBoxes) {
 		this.checkBoxes = checkBoxes;
 	}
-	
+
+	public ContentValues getCv() {
+		return cv;
+	}
+
+	public void setCv(ContentValues cv) {
+		this.cv = cv;
+	}
 	
 }
