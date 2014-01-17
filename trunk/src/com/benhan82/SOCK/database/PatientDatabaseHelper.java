@@ -138,12 +138,13 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         Log.d("patient", "The query command is: "+query);
         
         // query database
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery(query, null);		// THIS QUERY IS RETURNING A ZERO SIZE TABLE
         
         // if we got results get the first one
         if (cursor != null) {
             cursor.moveToFirst();
-            Log.d("patient", Integer.toString(cursor.getCount() ) );
+            int i = cursor.getCount();
+            Log.d("patient", Integer.toString(i) );
         }
         
         // build a new patient object
@@ -154,17 +155,10 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         	idIndex = notesIndex = firstIndex = lastIndex = 0;
         	String[] data = cursor.getColumnNames();
 			
-			try {
-				String s = cursor.getString(0);		// BUG HERE SIZE 0 ARRAY
-				Log.d("patient", "i = " + s ); 
-			} catch (Exception e1) {
-				Log.d("exception", e1.getMessage());
-				e1.printStackTrace();
-			}
-			
 			for (int i=0; i<data.length; i++) {
 				Log.d("patient", data[i]);
 			}
+			
 			try {
 				idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
 				notesIndex = cursor.getColumnIndexOrThrow(COLUMN_NOTES);
@@ -175,11 +169,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 				e.printStackTrace();
 			}
         	
-			int i = cursor.getPosition();
-			cursor.moveToLast();
-			i = cursor.getPosition();
-			// BUG HERE, FIX IT!!!!!!!
-			p.setId(cursor.getInt(idIndex));
+			p.setId(cursor.getInt(idIndex));		// BUG HERE, FIX IT!!!!!!!
 	        p.setNotes(cursor.getString(notesIndex));
 	        p.setFirstName(cursor.getString(firstIndex));
 	        p.setLastName(cursor.getString(lastIndex));

@@ -78,11 +78,11 @@ public class StartMenuActivity extends Activity {
 		List<Patient> list = db.getAllPatients();
 		
 		// BUG HERE
-		Patient p = db.getPatient(0);
-		p = db.getPatient(1);
+		Patient p = db.getPatient(1);
 		p = db.getPatient(2);
 		p = db.getPatient(3);
 		p = db.getPatient(4);
+		p = db.getPatient(5);
 		
 		
 		try {
