@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.benhan82.SOCK.database.Patient;
 import com.benhan82.SOCK.database.PatientDatabaseHelper;
+import com.benhan82.SOCK.tests.TestDatabase;
 
 public class StartMenuActivity extends Activity {
 	
@@ -49,62 +50,43 @@ public class StartMenuActivity extends Activity {
 
 	private void testDatabase() {
 		// Test method for SQLiteDatabase and related classes
+		TestDatabase.testPatient();
 		
-		Patient patient1 = new Patient("1. Jessie", "Blake");
-		Patient patient2 = new Patient("2. Edward", "Charmers");
-		Patient patient3 = new Patient("3. Neil", "Diamond");
-		Patient patient4 = new Patient("4. Natalie", "Harbott");
-		Patient patient5 = new Patient("5. Ella", "Keena");
 		
-		Log.d("patient", "Just added the following patients to the database:");
-		Log.d("patient", patient1.toString());
-		Log.d("patient", patient2.toString());
-		Log.d("patient", patient3.toString());		
-		Log.d("patient", patient4.toString());
-		Log.d("patient", patient5.toString());
-		Log.d("patient", "/n");
 		
+		/**
+		
+		// Make some Patient objects
+		Patient patients[] = new Patient[5];
+		patients[0] = new Patient("1. Jessie", "Blake");
+		patients[1] = new Patient("2. Edward", "Charmers");
+		patients[2] = new Patient("3. Neil", "Diamond");
+		patients[3] = new Patient("4. Natalie", "Harbott");
+		patients[4] = new Patient("5. Ella", "Keena");
+				
 		// Clear out any old entries in the database table
 		db.clearTable();
 		
 		// Add our example patients
-		db.addPatient(patient1);
-		db.addPatient(patient2);
-		db.addPatient(patient3);
-		db.addPatient(patient4);
-		db.addPatient(patient5);
+		for (int i = 0; i < patients.length; i++)
+			db.addPatient(patients[i]);
 		
 		// Verify that the database has all the patients loaded
 		List<Patient> list = db.getAllPatients();
 		
-		// BUG HERE
-		Patient p = db.getPatient(1);
-		p = db.getPatient(2);
-		p = db.getPatient(3);
-		p = db.getPatient(4);
-		p = db.getPatient(5);
+		// Update some entries
+		Patient pTemp = list.get(0);
+		MyApp.setPatient(pTemp);
+		pTemp.setFirstName("Bob");
+		pTemp.setLastName("Parker");
+		pTemp.setNotes("Cheers to the old mayor");
+		db.updatePatient(pTemp);
+		db.getPatient(pTemp.getId());
+		Patient pzb = MyApp.getPatient();
+		Log.d("patient", pzb.toString());
+		db.deletePatient(pTemp.getId());
 		
-		
-		try {
-			// this should swap patients 2 and 5, and 3 and 4
-//			Patient temp = patient4;
-//			patient4 = list.get(2);
-//			patient3 = temp;
-//			temp = patient2;
-//			patient2 = list.get(list.size()-1);
-//			patient5 = temp;
-		} catch (Exception e) {
-			Log.d("exception", e.getMessage());
-			e.printStackTrace();
-		}
-
-		int id = patient1.getId();
-		patient1.setFirstName("bob");
-		Log.d("patient", patient1.toString());
-		Log.d("patient", db.getPatient(id).toString() );
-		Log.d("patient", "the second one is from the database");		
-		db.deletePatient(id);
-		
+		**/
 	}
 	
 }

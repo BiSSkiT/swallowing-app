@@ -34,6 +34,11 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_CB9 = "CB9";
 	public static final String COLUMN_CB10 = "CB10";
 	
+	public static final int ID_INDEX = 0;
+	public static final int NOTES_INDEX = 1;
+	public static final int FIRST_INDEX = 2;
+	public static final int LAST_INDEX = 3;
+	
 	private static final String[] COLUMNS = {
 		COLUMN_ID,			// column index=0
 		COLUMN_NOTES,		//1
@@ -91,14 +96,19 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 		onCreate(database);
 	}
 	
-	
-	// CRUD operations
-	
+	/**
+	 * CRUD operations
+	 * 
+	 * "Create, Read, Update and Delete"
+	 * or in our respective methods called:
+	 * addPatient(), getPatient(), updatePatient(), deletePatient();
+	 * 
+	 */
 	
 	public void addPatient(Patient patient) {
 
 		// log transaction
-		Log.d("patient", "addPatient," + patient.toString());
+		Log.d("patient", "addPatient:" + patient.toString());
 		
 		// get reference to database
     	SQLiteDatabase db = getWritableDatabase();
@@ -134,57 +144,37 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // SQLite command string
-        String query = "SELECT * FROM "+TABLE_PATIENTS+" WHERE "+COLUMN_ID+" = "+id;
+        String query = "SELECT * FROM " + TABLE_PATIENTS + " WHERE " + COLUMN_ID + " = " + id;
         Log.d("patient", "The query command is: "+query);
         
         // query database
-        Cursor cursor = db.rawQuery(query, null);		// THIS QUERY IS RETURNING A ZERO SIZE TABLE
+        Cursor cursor = db.rawQuery(query, null);
         
-        // if we got results get the first one
-        if (cursor != null) {
+        // if we got results then move cursor to the first row, should only be one row 
+        // returned from the query.
+        if (cursor != null) 
             cursor.moveToFirst();
-            int i = cursor.getCount();
-            Log.d("patient", Integer.toString(i) );
-        }
-        
-        // build a new patient object
+                
+        // Build a new Patient object from database info
         Patient p = new Patient();
         
-        try {	
-        	int idIndex, notesIndex, firstIndex, lastIndex;
-        	idIndex = notesIndex = firstIndex = lastIndex = 0;
-        	String[] data = cursor.getColumnNames();
-			
-			for (int i=0; i<data.length; i++) {
-				Log.d("patient", data[i]);
-			}
-			
-			try {
-				idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
-				notesIndex = cursor.getColumnIndexOrThrow(COLUMN_NOTES);
-				firstIndex = cursor.getColumnIndexOrThrow(COLUMN_FIRSTNAME);
-				lastIndex = cursor.getColumnIndexOrThrow(COLUMN_LASTNAME);
-			} catch (Exception e) {
-				Log.d("exception", e.getMessage());
-				e.printStackTrace();
-			}
-        	
-			p.setId(cursor.getInt(idIndex));		// BUG HERE, FIX IT!!!!!!!
-	        p.setNotes(cursor.getString(notesIndex));
-	        p.setFirstName(cursor.getString(firstIndex));
-	        p.setLastName(cursor.getString(lastIndex));
+        try {
+        	p.setId(cursor.getInt(PatientDatabaseHelper.ID_INDEX));
+		    p.setNotes(cursor.getString(PatientDatabaseHelper.NOTES_INDEX));
+	        p.setFirstName(cursor.getString(PatientDatabaseHelper.FIRST_INDEX));
+	        p.setLastName(cursor.getString(PatientDatabaseHelper.LAST_INDEX));
 		} catch (Exception e) {
 			Log.d("exception", e.getMessage());
 			e.printStackTrace();
 		}
+        
         // recreate the check box array by iterating through the columns
         // if cursor.getInt(i) returns non-zero, then set the corresponding array 
         // element to true, otherwise false.
         boolean checkBoxes[] = new boolean[SIZE_OF_CB_ARRAY];
         for (int i=0; i<SIZE_OF_CB_ARRAY; i++) {
-        	
         	try {
-				checkBoxes[i] = cursor.getInt(i)!=0 ? true : false;
+				checkBoxes[i] = (cursor.getInt(i) != 0) ? true : false;
 			} catch (Exception e) {
 				Log.d("exception", e.getMessage());
 				e.printStackTrace();
@@ -193,7 +183,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         p.setCheckBoxes(checkBoxes);
         
         //log 
-        Log.d("patient", "getPatient("+id+")" + p.toString());
+        Log.d("patient", "getPatient:" + p.toString());
         
         return p;
 	}
@@ -269,7 +259,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         // 4. close
         db.close();
         
-        Log.d("updatePatient", "updatePatient" + patient.toString());
+        Log.d("updatePatient", "updatePatient:" + patient.toString());
         
         return i;
 	}
@@ -280,7 +270,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
  
         // 2. delete
-        Log.d("patient", "deletePatient" + getPatient(id).toString());
+        Log.d("patient", "deletePatient:" + getPatient(id).toString());
         
         db.delete(TABLE_PATIENTS, //table name
         		COLUMN_ID + " = ?",  // selections
@@ -297,7 +287,6 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENTS);
 			onCreate(db);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			Log.d("exception", e.getMessage());
 			e.printStackTrace();
 		}
