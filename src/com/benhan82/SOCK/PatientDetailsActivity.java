@@ -18,13 +18,13 @@ import com.benhan82.SOCK.database.PatientDatabaseHelper;
 /**
  * @author Ben Han
  * class PatientDetailsActivity
- * This activity displays a summary of the patient data stored in the database.
+ * This activity displays the notes of the patient data stored in the database.
  *
  */
 public class PatientDetailsActivity extends Activity {
 	
 	private EditText mIdText;
-	private EditText mSummaryText;
+	private EditText mNotesText;
 	private CheckBox mCheckBox1, mCheckBox2, mCheckBox3, mCheckBox4;
 	private PatientDatabaseHelper db = MyApp.getDb();
 
@@ -38,7 +38,7 @@ public class PatientDetailsActivity extends Activity {
 		setupActionBar();
 		
 		mIdText = (EditText) findViewById(R.id.patientIdText);
-		mSummaryText = (EditText) findViewById(R.id.patientSummaryText);
+		mNotesText = (EditText) findViewById(R.id.patientSummaryText);
 		mCheckBox1 = (CheckBox) findViewById(R.id.clin_asse_1a_cb04);
 		mCheckBox2 = (CheckBox) findViewById(R.id.clin_asse_1a_cb05);
 		mCheckBox3 = (CheckBox) findViewById(R.id.clin_asse_1a_cb07);
@@ -122,7 +122,7 @@ public class PatientDetailsActivity extends Activity {
 	private void fillData(Uri uri) {
 		String[] projection = { 
 				PatientDatabaseHelper.COLUMN_ID, 
-				PatientDatabaseHelper.COLUMN_SUMMARY,
+				PatientDatabaseHelper.COLUMN_NOTES,
 				PatientDatabaseHelper.COLUMN_CB1, 
 				PatientDatabaseHelper.COLUMN_CB2, 
 				PatientDatabaseHelper.COLUMN_CB3 };
@@ -136,8 +136,8 @@ public class PatientDetailsActivity extends Activity {
 			
 			mIdText.setText(cursor.getString(cursor
 					.getColumnIndexOrThrow(db.COLUMN_ID)));
-			mSummaryText.setText(cursor.getString(cursor
-					.getColumnIndexOrThrow(db.COLUMN_SUMMARY)));
+			mNotesText.setText(cursor.getString(cursor
+					.getColumnIndexOrThrow(db.COLUMN_NOTES)));
 			
 			// if the returned values from the cursor is not 0 then 
 			// setChecked(true) or else setChecked(false)
@@ -160,12 +160,12 @@ public class PatientDetailsActivity extends Activity {
 	 */
 	private void saveState() {
 		String id = mIdText.getText().toString();
-		String summary = mSummaryText.getText().toString();
+		String notes = mNotesText.getText().toString();
 		boolean checkbox1 = mCheckBox1.isChecked();
 		boolean checkbox2 = mCheckBox2.isChecked();
 		boolean checkbox3 = mCheckBox3.isChecked();
 		
-		// only save if either summary or description
+		// only save if either notes or description
 		// is available
 		if (id.length() == 0 && id.length() == 0) {
 			return;
@@ -173,7 +173,7 @@ public class PatientDetailsActivity extends Activity {
 
 		ContentValues values = new ContentValues();
 		values.put(db.COLUMN_ID, id);
-		values.put(db.COLUMN_SUMMARY, summary);
+		values.put(db.COLUMN_NOTES, notes);
 		values.put(db.COLUMN_CB1, (checkbox1 ? true : false) );
 		values.put(db.COLUMN_CB2, (checkbox2 ? true : false) );
 		values.put(db.COLUMN_CB3, (checkbox3 ? true : false) );
