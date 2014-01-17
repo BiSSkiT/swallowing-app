@@ -25,12 +25,18 @@ public class Patient {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		
+		// Set the global reference to the current patient to point at this
 		MyApp.setPatient(this);
 	}
 	
 	public String toString() {
-		return "Patient [id=" + id + ", first name=" + firstName + 
-				", lastName=" + lastName + "]";
+		String s = "Patient [id=" + id + ", Full name = " + firstName + " " + lastName + "]";
+		
+		if (this.notes != null)
+			s += (" Notes: " + notes);
+		
+		return s;
 	}
 	
 	// Getters and setters
