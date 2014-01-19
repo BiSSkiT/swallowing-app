@@ -89,7 +89,7 @@ public class PatientListActivity extends ListActivity  {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, PatientDetailsActivity.class);		
+		Intent i = new Intent(this, PatientSummaryActivity.class);		
 		startActivity(i);
 	}
 	

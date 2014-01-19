@@ -83,7 +83,7 @@
 
 
         <activity
-            android:name="com.benhan82.SOCK.PatientDetailsActivity"
+            android:name="com.benhan82.SOCK.PatientSummaryActivity"
             android:label="@string/title_activity_patient_detail"
             android:parentActivityName="com.benhan82.SOCK.PatientListActivity" >
             <meta-data
