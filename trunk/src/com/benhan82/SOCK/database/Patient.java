@@ -14,8 +14,6 @@ public class Patient {
 	private ContentValues cv;
 	
 	
-	
-
 	public Patient() {}	
 	
 	// Standard constructor, these are the minimum detail for new patients. 
@@ -31,7 +29,7 @@ public class Patient {
 	}
 	
 	public String toString() {
-		String s = "Patient [id=" + id + ", Full name = " + firstName + " " + lastName + "]";
+		String s = "Patient [id=" + id + ", Full name = " + firstName + " " + lastName + "]\n";
 		
 		if (this.notes != null)
 			s += (" Notes: " + notes);
@@ -79,14 +77,6 @@ public class Patient {
 
 	public void setCheckBoxes(boolean[] checkBoxes) {
 		this.checkBoxes = checkBoxes;
-	}
-
-	public ContentValues getCv() {
-		return cv;
-	}
-
-	public void setCv(ContentValues cv) {
-		this.cv = cv;
 	}
 	
 }

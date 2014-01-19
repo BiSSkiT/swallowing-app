@@ -139,6 +139,13 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
     	db.close(); 
 	}
 		
+	/**
+	 * NOTE: The indexing for the database starts at 1, NOT 0. 
+	 * i.e. when the first patient is added, that is assigned an ID of 1, then increments
+	 * 
+	 * @param id
+	 * @return patient
+	 */
 	public Patient getPatient(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -189,6 +196,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public List<Patient> getAllPatients() {
+		
 		List<Patient> patients = new LinkedList<Patient>();
 		  
         // 1. build the query
@@ -259,7 +267,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         // 4. close
         db.close();
         
-        Log.d("updatePatient", "updatePatient:" + patient.toString());
+        Log.d("patient", "updatePatient:" + patient.toString());
         
         return i;
 	}
@@ -286,6 +294,7 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 			SQLiteDatabase db = this.getWritableDatabase();
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENTS);
 			onCreate(db);
+			Log.d("patient", "The table \"" + TABLE_PATIENTS + "\" has been cleared. All entries removed.");
 		} catch (SQLException e) {
 			Log.d("exception", e.getMessage());
 			e.printStackTrace();

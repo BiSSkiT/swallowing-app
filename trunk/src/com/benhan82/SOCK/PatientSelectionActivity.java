@@ -1,14 +1,16 @@
 package com.benhan82.SOCK;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class PatientSelectionActivity extends Activity {
+	
+	EditText et = (EditText) findViewById(R.id.edit_patientID);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +32,33 @@ public class PatientSelectionActivity extends Activity {
 	}
 	
 	public void onClickOpen(View view) {
-		// Open an existing patient entry and open Patient Summary Activity
-		Intent intent = new Intent(this, PatientDetailsActivity.class);
-		startActivity(intent);
+		// Open an existing patient entry and open Patient Summary Activity, only
+		// if the user has entered an ID
+		EditText et = (EditText) findViewById(R.id.edit_patientID);
+		
+		String s = et.getText().toString().trim();
+		if ( et.getText() == null || s.equals("") ) {
+			makeToast();
+		} else {
+//			// check that the ID exists in the database
+//			int i = this.et.get
+//			if (condition) {
+				Intent intent = new Intent(this, PatientSummaryActivity.class);
+				startActivity(intent);
+//			}
+		}
+		
 	}
 	
 	public void onClickBrowse(View view) {
 		// Open the patient list activity, to browse entries in the database
 		startActivity(new Intent(this, PatientListActivity.class));
+	}
+
+	
+	private void makeToast() {
+		Toast.makeText(PatientSelectionActivity.this, "Please enter a patient ID",
+				Toast.LENGTH_LONG).show();
 	}
 
 }
