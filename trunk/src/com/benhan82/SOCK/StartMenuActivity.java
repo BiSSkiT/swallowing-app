@@ -1,18 +1,15 @@
 package com.benhan82.SOCK;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 
-import com.benhan82.SOCK.database.Patient;
 import com.benhan82.SOCK.database.PatientDatabaseHelper;
 import com.benhan82.SOCK.tests.TestDatabase;
+import com.benhan82.SOCK.tests.TestUI;
 
 public class StartMenuActivity extends Activity {
 	
@@ -55,5 +52,6 @@ public class StartMenuActivity extends Activity {
 		testDb.testPatientDatabaseHelper(this);
 		
 	}
+
 	
 }

@@ -67,7 +67,7 @@
 	            </EditText>
 	
 	            <EditText
-	                android:id="@+id/editText2"
+	                android:id="@+id/newPatientLastNameEditText"
 	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
 	                android:layout_weight="1"
@@ -98,7 +98,7 @@
 	            android:layout_height="wrap_content" >
 	
 	            <TextView
-	                android:id="@+id/textView2"
+	                android:id="@+id/currentPatientText"
 	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
 	                android:layout_weight="1"

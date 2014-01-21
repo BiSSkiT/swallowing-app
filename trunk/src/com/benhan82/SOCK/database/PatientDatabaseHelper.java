@@ -105,7 +105,15 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
 	 * 
 	 */
 	
-	public void addPatient(Patient patient) {
+	/**
+	 * addPatient(Patient patient)
+	 * 
+	 * Adds the given Patient object to the database.
+	 * 
+	 * @param patient
+	 * @return the row id of the database entry
+	 */
+	public int addPatient(Patient patient) {
 
 		// log transaction
 		Log.d("patient", "addPatient:" + patient.toString());
@@ -133,15 +141,28 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
     	values.put(COLUMN_CB10, checkBoxes[9] ? 1 : 0);
     	
     	// insert contentValues into the database
-    	db.insert(TABLE_PATIENTS, null, values);
+    	int rowId = (int) db.insert(TABLE_PATIENTS, null, values);
     	
     	// close database
     	db.close(); 
+    	
+    	if (rowId == -1) {
+    		Log.d("exception", "Error adding patient to the database.");
+    	}
+    	return rowId;
 	}
 		
 	/**
+	 * getPatient(int id)
+	 * 
+	 * Method to retrieve a Patient object from the database. If a patient with an ID matching
+	 * the one given, then null is returned.
+	 * 
 	 * NOTE: The indexing for the database starts at 1, NOT 0. 
 	 * i.e. when the first patient is added, that is assigned an ID of 1, then increments
+	 * 		by 1 with each patient added. If any entries are deleted, their ID's remain the
+	 * 		same.
+	 * 
 	 * 
 	 * @param id
 	 * @return patient
@@ -158,9 +179,11 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         
         // if we got results then move cursor to the first row, should only be one row 
-        // returned from the query.
+        // returned from the query, otherwise exit function returning null.
         if (cursor != null) 
             cursor.moveToFirst();
+        else
+        	return null;
                 
         // Build a new Patient object from database info
         Patient p = new Patient();

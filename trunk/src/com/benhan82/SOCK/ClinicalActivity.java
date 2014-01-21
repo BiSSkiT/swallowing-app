@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
+
+import com.benhan82.SOCK.database.Patient;
 
 
 public class ClinicalActivity extends Activity {
+	
+	TextView currPatTv;
+	Patient pat;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +22,10 @@ public class ClinicalActivity extends Activity {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_clinical_menu);
-		
+		pat = MyApp.getPatient();
+		currPatTv = (TextView) findViewById(R.id.currentPatientText);
+		currPatTv.setText("Current patient: " + pat.getFirstName() + " " 
+				+ pat.getLastName() + "    ID: " + Integer.toString(pat.getId()) );
 	}
 
 	@Override
