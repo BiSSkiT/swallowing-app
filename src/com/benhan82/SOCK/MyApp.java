@@ -10,6 +10,7 @@ public class MyApp extends Application {
 	
 	private static PatientDatabaseHelper db;
 	private static Patient patientPrivate = null;
+	private static PatientSelectionActivity PSA = null;
 
 	public MyApp() {}
 
@@ -38,6 +39,14 @@ public class MyApp extends Application {
 
 	public static void setDb(PatientDatabaseHelper db) {
 		MyApp.db = db;
+	}
+
+	public static PatientSelectionActivity getPSA() {
+		return PSA;
+	}
+
+	public static void setPSA(PatientSelectionActivity pSA) {
+		PSA = pSA;
 	}
 
 }
