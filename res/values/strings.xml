@@ -32,5 +32,6 @@
     <string name="menu_delete">Delete</string>
     <string name="title_activity_new_patient">New Patient Activity</string>
     <string name="new_patient_button">Create file</string>
+    <string name="title_activity_learning_head">LearningHeadActivity</string>
 
 </resources>

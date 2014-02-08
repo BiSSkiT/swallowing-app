@@ -1,10 +1,10 @@
 package com.benhan82.SOCK;
 
-import com.benhan82.SOCK.R;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 
 public class LearningActivity extends Activity {
@@ -22,6 +22,11 @@ public class LearningActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.learning_menu, menu);
 		return true;
+	}
+	
+	public void openClinEduc(View view) {
+		Intent intent = new Intent(this, LearningHeadActivity.class);
+		startActivity(intent);
 	}
 
 }
