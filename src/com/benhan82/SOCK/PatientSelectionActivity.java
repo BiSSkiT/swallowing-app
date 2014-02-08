@@ -33,6 +33,12 @@ public class PatientSelectionActivity extends Activity {
 		return true;
 	}
 	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		finish();
+	}
+
 	public void onClickNew(View view) {
 		// Open New Patient screen
 		Intent intent = new Intent(this, NewPatientActivity.class);
