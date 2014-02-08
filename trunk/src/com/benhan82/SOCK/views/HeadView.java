@@ -24,16 +24,12 @@ public class HeadView extends ImageView{
 
 	Bitmap head, scaledHead;
 	int bitX, bitY;
-    ObjectAnimator translateAnimation;
-    ObjectAnimator scaleAnimation;
-    ObjectAnimator t1;
-    ObjectAnimator s1;
     AnimatorSet setEye;
     AnimatorSet mCurrentAnimator;
     boolean zoomed = false;
     int viewNo = 0;
     int currY = 0;
-    
+   
     public static final int zoomEye = 1;
     public static final int zoomNose = 2;
     public static final int zoomBrain = 3;
@@ -57,35 +53,12 @@ public class HeadView extends ImageView{
     public static final int[] hyoid = {210,280,600,700,500,-600};
     public static final int[] epig = {280,370,580,670,120,-550};
     
-    
-	ImageView container;    
-    
+        
 	public HeadView(Context context) {
 		super(context);
 		head = BitmapFactory.decodeResource(getResources(), R.drawable.learning_head);
 		scaleHead(context);
 		this.setImageBitmap(scaledHead);
-		defineAnimations();
-		container = this;
-		
-	}
-
-	private void defineAnimations() {
-        // Move the button over to the right and then back
-        translateAnimation = ObjectAnimator.ofFloat(this, View.TRANSLATION_X, 800);
-        translateAnimation.setRepeatCount(1);
-        translateAnimation.setRepeatMode(ValueAnimator.REVERSE);
-        translateAnimation.setDuration(100);
-        
-        // Scale the button in X and Y. Note the use of PropertyValuesHolder to animate
-        // multiple properties on the same object in parallel.
-        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, (float) 1.5);
-        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.SCALE_Y, (float) 1.5);
-        scaleAnimation = ObjectAnimator.ofPropertyValuesHolder(this, pvhX, pvhY);
-        scaleAnimation.setRepeatCount(1);
-        scaleAnimation.setRepeatMode(ValueAnimator.REVERSE);
-        scaleAnimation.setDuration(100);
-
 	}
 
 	public void scaleHead(Context context) {
@@ -102,6 +75,7 @@ public class HeadView extends ImageView{
 		scaledHead = Bitmap.createScaledBitmap(head, width, (int) height, false);
 	}
 
+	// Handle all single taps
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		
@@ -115,10 +89,11 @@ public class HeadView extends ImageView{
             	// get tap coordinates
 	        	float x = event.getX();
 	        	float y = event.getY();
-		        	
+		        
+	        	// if not already zoomed in, look to see if the tap was inside any bounding box
 		        if (!zoomed) {
 		        	if ( (x > eye[0]) && (x < eye[1]) && (y > eye[2]) && (y < eye[3]) ) {
-			        	// if the tap was inside the bounding box for the eye.
+			        	// ----------------------> EYE <-------------------------------------------
 		            	Log.d("touch", "eye");
 		            	
 		            	// Save state info
@@ -140,7 +115,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		                
 		            } else if((x > nose[0]) && (x < nose[1]) && (y > nose[2]) && (y < nose[3]) ) {
-			        	// if the tap was inside the bounding box for the nose.
+			        	// ----------------------> NOSE <-------------------------------------------
 		            	Log.d("touch", "nose");
 
 		            	// Save state info
@@ -162,7 +137,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > brain[0]) && (x < brain[1]) && (y > brain[2]) && (y < brain[3]) ) {
-			        	// if the tap was inside the bounding box for the brain.
+			        	// ----------------------> BRAIN <-------------------------------------------
 		            	Log.d("touch", "brain");
 
 		            	// Save state info
@@ -184,7 +159,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > lips[0]) && (x < lips[1]) && (y > lips[2]) && (y < lips[3]) ) {
-			        	// if the tap was inside the bounding box for the lips.
+			        	// ----------------------> LIPS <-------------------------------------------
 		            	Log.d("touch", "lips");
 
 		            	// Save state info
@@ -206,7 +181,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > tongue[0]) && (x < tongue[1]) && (y > tongue[2]) && (y < tongue[3]) ) {
-			        	// if the tap was inside the bounding box for the tongue.
+			        	// ----------------------> TONGUE <-------------------------------------------
 		            	Log.d("touch", "tongue");
 
 		            	// Save state info
@@ -228,7 +203,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > jaws[0]) && (x < jaws[1]) && (y > jaws[2]) && (y < jaws[3]) ) {
-			        	// if the tap was inside the bounding box for the jaws.
+			        	// ----------------------> JAWS <-------------------------------------------
 		            	Log.d("touch", "jaws");
 
 		            	// Save state info
@@ -250,7 +225,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > vfs[0]) && (x < vfs[1]) && (y > vfs[2]) && (y < vfs[3]) ) {
-			        	// if the tap was inside the bounding box for the vfs.
+			        	// ----------------------> VFS <-------------------------------------------
 		            	Log.d("touch", "vfs");
 
 		            	// Save state info
@@ -272,7 +247,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > palate[0]) && (x < palate[1]) && (y > palate[2]) && (y < palate[3]) ) {
-			        	// if the tap was inside the bounding box for the palate.
+			        	// ----------------------> PALATE <-------------------------------------------
 		            	Log.d("touch", "palate");
 
 		            	// Save state info
@@ -294,7 +269,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > hyoid[0]) && (x < hyoid[1]) && (y > hyoid[2]) && (y < hyoid[3]) ) {
-			        	// if the tap was inside the bounding box for the hyoid.
+			        	// ----------------------> HYOID <-------------------------------------------
 		            	Log.d("touch", "hyoid");
 
 		            	// Save state info
@@ -316,7 +291,7 @@ public class HeadView extends ImageView{
 		                mCurrentAnimator = set;
 		            	
 		            } else if((x > epig[0]) && (x < epig[1]) && (y > epig[2]) && (y < epig[3]) ) {
-			        	// if the tap was inside the bounding box for the epig.
+			        	// ----------------------> EPIGLOTTIS <-------------------------------------------
 		            	Log.d("touch", "epig");
 
 		            	// Save state info
