@@ -38,20 +38,24 @@ public class HeadView extends ImageView{
 		scaleHead(context);
 		this.setImageBitmap(scaledHead);
 
+		defineAnimations();
+	}
+
+	private void defineAnimations() {
         // Move the button over to the right and then back
         translateAnimation = ObjectAnimator.ofFloat(this, View.TRANSLATION_X, 800);
         translateAnimation.setRepeatCount(1);
         translateAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        translateAnimation.setDuration(100);
         
         // Scale the button in X and Y. Note the use of PropertyValuesHolder to animate
         // multiple properties on the same object in parallel.
-        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, 2);
-        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 2);
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, (float) 1.5);
+        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.SCALE_Y, (float) 1.5);
         scaleAnimation = ObjectAnimator.ofPropertyValuesHolder(this, pvhX, pvhY);
         scaleAnimation.setRepeatCount(1);
         scaleAnimation.setRepeatMode(ValueAnimator.REVERSE);
-        
-//        mDetector = new GestureDetectorCompat(context, new MyGestureListener());
+        scaleAnimation.setDuration(100);
 	}
 
 	public void scaleHead(Context context) {
@@ -64,7 +68,8 @@ public class HeadView extends ImageView{
 		bitX = head.getWidth();
 		bitY = head.getHeight();
 		float sf = (float) width / (float) bitX;
-		scaledHead = Bitmap.createScaledBitmap(head, width, (int) sf*bitY, false);
+		float height = sf * (float) bitY;
+		scaledHead = Bitmap.createScaledBitmap(head, width, (int) height, false);
 	}
 
 	@Override
@@ -73,71 +78,24 @@ public class HeadView extends ImageView{
 	    switch (event.getAction()) {
 	        case MotionEvent.ACTION_UP: {
                 //click event has occurred
-            	Log.d("touch", "onClick()");
+            	Log.d("touch", "ACTION_UP at " + event.getX() + ", " + event.getY() );
             	
 	        	float x = event.getX();
 	        	float y = event.getY();
-	            if ( (x > 100) && (x < 400) && (y > 100) && (y < 400) ) {
-	            	Log.d("touch", "translateAnimation");
-	            	translateAnimation.start();
-	            }
-	            else {
-	            	Log.d("touch", "scaleAnimation");
-	            	scaleAnimation.start();
-	            }
+//	            if ( (x > 100) && (x < 400) && (y > 100) && (y < 400) ) {
+//	            	Log.d("touch", "translateAnimation");
+//	            	translateAnimation.start();
+//	            }
+//	            else {
+//	            	Log.d("touch", "scaleAnimation");
+//	            	scaleAnimation.start();
+//	            }
 			}
-	        
 	    }
 
     	Log.d("touch", "action: " + event.getAction());
 		return true;
 	}
-
-	// Subclass of SimpleOnGestureListener to respond only to single tap events
-//    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-//
-//        @Override
-//        public boolean onDown(MotionEvent event) { 
-//        	Log.d("touch", "onDown()");
-//            return true;
-//        }
-//        
-//        @Override
-//		public void onLongPress(MotionEvent e) {
-//			// TODO Auto-generated method stub
-//        	Log.d("touch", "onLongPress()");
-//
-//        	float x = e.getX();
-//        	float y = e.getY();
-//            if ( (x > 100) && (x < 400) && (y > 100) && (y < 400) ) {
-//            	Log.d("touch", "translateAnimation");
-//            	translateAnimation.start();
-//            }
-//            else {
-//            	Log.d("touch", "scaleAnimation");
-//            	scaleAnimation.start();
-//            }
-//            
-//			super.onLongPress(e);
-//		}
-
-
-//		@Override
-//        public boolean onSingleTapUp(MotionEvent event) { 
-//
-//        	float x = event.getX();
-//        	float y = event.getY();
-//            if ( (x > 100) && (x < 400) && (y > 100) && (y < 400) ) {
-//            	Log.d("touch", "translateAnimation");
-//            	translateAnimation.start();
-//            }
-//            else {
-//            	Log.d("touch", "scaleAnimation");
-//            	scaleAnimation.start();
-//            }
-//            return true;
-//        }
-//	 }    
 	
 }
 
