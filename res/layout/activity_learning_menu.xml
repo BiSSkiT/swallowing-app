@@ -20,8 +20,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:text="@string/button_learn_asse"
-            android:onClick="openClinAsse" />
+            android:text="@string/button_learn_asse" />
 
         <Button
             android:id="@+id/button2"
@@ -29,8 +28,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:text="@string/button_learn_diag"
-            android:onClick="openClinDiag" />
+            android:text="@string/button_learn_diag" />
 
         <Button
             android:id="@+id/button3"
