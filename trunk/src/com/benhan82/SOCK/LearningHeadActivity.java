@@ -1,9 +1,13 @@
 package com.benhan82.SOCK;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.benhan82.SOCK.views.HeadView;
 
@@ -11,6 +15,7 @@ public class LearningHeadActivity extends Activity {
 	
 	LinearLayout container;
 	HeadView myView;
+	public TextView tvEye;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,14 @@ public class LearningHeadActivity extends Activity {
 		myView = new HeadView(this);
         container = (LinearLayout) findViewById(R.id.container);
         container.addView(myView);
+        
+        tvEye = (TextView) findViewById(R.id.tvEye);
+        tvEye.setVisibility(View.INVISIBLE);
+        
+        String fontPath = "fonts/a song for jennifer bold.ttf";
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        tvEye.setTypeface(tf);
+        tvEye.setBackgroundColor(getResources().getColor(R.color.white));
 	}
 
 }
