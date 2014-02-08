@@ -95,6 +95,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.benhan82.SOCK.PatientSelectionActivity" />
         </activity>
+        <activity
+            android:name="com.benhan82.SOCK.LearningHeadActivity"
+            android:label="@string/title_activity_learning_head"
+            android:parentActivityName="com.benhan82.SOCK.LearningActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.benhan82.SOCK.LearningActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
