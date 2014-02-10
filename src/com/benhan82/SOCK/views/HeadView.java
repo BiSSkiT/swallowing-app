@@ -71,7 +71,9 @@ public class HeadView extends ImageView{
     // Standard constructor
 	public HeadView(Context context) {
 		super(context);
-		head = BitmapFactory.decodeResource(getResources(), R.drawable.learning_head2);
+		
+		// Set image for zooming
+		head = BitmapFactory.decodeResource(getResources(), R.drawable.head_sagital_800_wide);
 		scaleHead(context);
 		this.setImageBitmap(scaledHead);
 		parentActivity = (LearningHeadActivity) context;
@@ -436,7 +438,7 @@ public class HeadView extends ImageView{
 				case zoomPalate:
 					currInfo.setText("SOFT PALATE: Velopharyngeal closure to block off the nasal cavity.\n" +
 							"<Muscle> Levator veli palatini.	\n" +
-							"Cranial Nerves: Pharyngeal plexus (CNs 9 and 10).");
+							"<Cranial Nerve> Pharyngeal plexus (CNs 9 and 10).");
 					currInfo.setVisibility(View.VISIBLE);
 					break;
 				case zoomHyoid:
@@ -444,7 +446,7 @@ public class HeadView extends ImageView{
 							"<Muscle>\n" +
 							"Up: stylohyoid and posterior belly of the digastric.\n" +
 							"Forward: geniohyoid, mylohyoid and the anterior belly of the digastric.\n" +
-							"Cranial Nerves:\n" +
+							"<Cranial Nerve>\n" +
 							"Up: CN7.   Forward: CN5 (and ansa cervicalis).");
 					currInfo.setVisibility(View.VISIBLE);
 					break;
