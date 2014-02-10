@@ -11,8 +11,9 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int black=0x7f050001;
-        public static final int white=0x7f050000;
+        public static final int black=0x7f050002;
+        public static final int text_colour=0x7f050001;
+        public static final int transparent_white=0x7f050000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -31,14 +32,17 @@ public final class R {
         public static final int food_splash=0x7f020003;
         public static final int head_crown=0x7f020004;
         public static final int head_crown_gradient=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int learning_head=0x7f020007;
-        public static final int learning_head2=0x7f020008;
-        public static final int reminder=0x7f020009;
-        public static final int splash_800x480=0x7f02000a;
-        public static final int splash_portrait=0x7f02000b;
-        public static final int splash_swallow=0x7f02000c;
-        public static final int splash_swallow_crop=0x7f02000d;
+        public static final int head_sagital=0x7f020006;
+        public static final int head_sagital_800_wide=0x7f020007;
+        public static final int head_sagital_half=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int learning_head=0x7f02000a;
+        public static final int learning_head2=0x7f02000b;
+        public static final int reminder=0x7f02000c;
+        public static final int splash_800x480=0x7f02000d;
+        public static final int splash_portrait=0x7f02000e;
+        public static final int splash_swallow=0x7f02000f;
+        public static final int splash_swallow_crop=0x7f020010;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0012;

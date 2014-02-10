@@ -27,13 +27,16 @@ public class LearningHeadActivity extends Activity {
         container = (LinearLayout) findViewById(R.id.container);
         container.addView(myView);
         
+        // this is the TextView for the info in the zoomed view
+        // the look and feel is set here.
         tvEye = (TextView) findViewById(R.id.tvEye);
         tvEye.setVisibility(View.INVISIBLE);
         
         String fontPath = "fonts/a song for jennifer bold.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         tvEye.setTypeface(tf);
-        tvEye.setBackgroundColor(getResources().getColor(R.color.white));
+        tvEye.setBackgroundColor(getResources().getColor(R.color.transparent_white));
+        tvEye.setTextColor(getResources().getColor(R.color.text_colour));
 	}
 
 }
