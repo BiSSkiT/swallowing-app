@@ -21,7 +21,7 @@ public class PatientSelectionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient_selection);
-		et = (EditText) findViewById(R.id.edit_patientID);
+		et = (EditText) findViewById(R.id.editTextId);
 		db = MyApp.getDb();
 		MyApp.setPSA(this);
 	}
@@ -39,15 +39,24 @@ public class PatientSelectionActivity extends Activity {
 		finish();
 	}
 
-	public void onClickNew(View view) {
-		// Open New Patient screen
-		Intent intent = new Intent(this, NewPatientActivity.class);
-		startActivity(intent);
+	// onClick button handlers
+	public void onClick(View view) {
+		switch(view.getId()) {
+		case R.id.newPatient:
+			startActivity(new Intent(this, NewPatientActivity.class));
+			break;
+		case R.id.open:
+			onOpen(view);
+			break;
+		case R.id.browse:
+			startActivity(new Intent(this, PatientListActivity.class));
+			break;
+		}
 	}
-	
-	public void onClickOpen(View view) {
-		// Open an existing patient entry and open Patient Summary Activity, only
-		// if the user has entered an ID		
+
+	// Open an existing patient entry and open Patient Summary Activity, only
+	// if the user has entered an ID	
+	public void onOpen(View view) {	
 		String s = et.getText().toString().trim();
 		boolean success = false;
 		
@@ -83,13 +92,8 @@ public class PatientSelectionActivity extends Activity {
 				startActivity(intent);
 			}
 		}
-		
 	}
 
-	public void onClickBrowse(View view) {
-		// Open the patient list activity, to browse entries in the database
-		startActivity(new Intent(this, PatientListActivity.class));
-	}
 	
 	/**
 	 * Display error message provided
