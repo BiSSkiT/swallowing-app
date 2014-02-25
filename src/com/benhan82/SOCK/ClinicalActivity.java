@@ -52,4 +52,10 @@ public class ClinicalActivity extends Activity {
 		Intent intent = new Intent(this, ClinicalPatientEdActivity.class);
 		startActivity(intent);
 	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
 }

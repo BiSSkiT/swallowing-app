@@ -2,18 +2,17 @@ package com.benhan82.SOCK;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.benhan82.SOCK.database.Patient;
+import com.benhan82.SOCK.database.PatientContentProvider;
 import com.benhan82.SOCK.database.PatientDatabaseHelper;
+import com.benhan82.SOCK.database.PatientTable;
 
 /**
  * @author Ben Han
@@ -23,24 +22,42 @@ import com.benhan82.SOCK.database.PatientDatabaseHelper;
  */
 public class PatientSummaryActivity extends Activity {
 	
+	private EditText mNameText;
 	private EditText mIdText;
 	private EditText mNotesText;
 	private CheckBox mCheckBox1, mCheckBox2, mCheckBox3, mCheckBox4;
 	private PatientDatabaseHelper db = MyApp.getDb();
+	
+	private Uri patientUri;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {		
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_patient_summary);
 		// Show the Up button in the action bar.
-		setupActionBar();
+//		setupActionBar();
 		
+		mNameText = (EditText) findViewById(R.id.patientName);
 		mIdText = (EditText) findViewById(R.id.patientIdText);
 		mNotesText = (EditText) findViewById(R.id.patientSummaryText);
 		mCheckBox1 = (CheckBox) findViewById(R.id.clin_asse_1a_cb04);
 		mCheckBox2 = (CheckBox) findViewById(R.id.clin_asse_1a_cb05);
 		mCheckBox3 = (CheckBox) findViewById(R.id.clin_asse_1a_cb07);
 		Button doneButton = (Button) findViewById(R.id.doneButton);
+
+	    Bundle extras = getIntent().getExtras();
+
+	    // check from the saved Instance
+	    patientUri = (bundle == null) ? null : (Uri) bundle
+	    		.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
+
+	    // Or passed from the other activity
+	    if (extras != null) {
+	    	patientUri = extras
+	    			.getParcelable(PatientContentProvider.CONTENT_ITEM_TYPE);
+
+	    	fillData(patientUri);
+	    }
 		
     	doneButton.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View view) {
@@ -48,40 +65,81 @@ public class PatientSummaryActivity extends Activity {
 				finish();
     		}
     	});
-    	
-    	fillData();
 	}
+//
+//	/**
+//	 * Set up the {@link android.app.ActionBar}.
+//	 */
+//	private void setupActionBar() {
+//
+//		getActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//	}
+//
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.patient_detail, menu);
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		switch (item.getItemId()) {
+//		case android.R.id.home:
+//			NavUtils.navigateUpFromSameTask(this);
+//			return true;
+//		}
+//		return super.onOptionsItemSelected(item);
+//	}
 
 	/**
-	 * Set up the {@link android.app.ActionBar}.
+	 * method fillData()
+	 * Opposite of saveState, this method loads data from the database helper
+	 * into the view fields.
 	 */
-	private void setupActionBar() {
-
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.patient_detail, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+	private void fillData(Uri uri) {
+		String[] projection = PatientTable.COLUMNS;
+		Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+		if (cursor != null) {
+			cursor.moveToFirst();
+			
+			// fill in the name
+			String firstName = cursor.getString(cursor
+					.getColumnIndexOrThrow(PatientTable.COLUMN_FIRSTNAME));
+			String lastName = cursor.getString(cursor
+					.getColumnIndexOrThrow(PatientTable.COLUMN_LASTNAME));
+			
+			mNameText.setText(firstName);
+			
+			// set ID text and notes
+			mIdText.setText(cursor.getString(cursor
+					.getColumnIndexOrThrow(PatientTable.COLUMN_ID)));
+	      	mNotesText.setText(cursor.getString(cursor
+	      			.getColumnIndexOrThrow(PatientTable.COLUMN_NOTES)));
+	      	
+	      	// need to set checkboxes
+	      	
+	      	// always close the cursor
+	      	cursor.close();
 		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		saveState();
+//
+//		Patient pat = MyApp.getPatient();
+//		mIdText.setText( Integer.toString(pat.getId()) );
+//		mNotesText.setText( pat.getNotes() );
+//		
+//		// if the returned values from the cursor is not 0 then 
+//		// setChecked(true) or else setChecked(false)
+//		
+//		try {
+//			boolean[] checkBoxes = pat.getCheckBoxes();
+//			for (int i = 0; i < checkBoxes.length; i++)
+//				mCheckBox1.setChecked(checkBoxes[i]);
+//		} catch (Exception e) {
+//			Log.d("exception", e.getMessage());
+//			e.printStackTrace();
+//		}
+//		
 	}
 
 	@Override
@@ -89,33 +147,13 @@ public class PatientSummaryActivity extends Activity {
 		super.onSaveInstanceState(outState);
 		saveState();
 	}
-	
 
-	/**
-	 * method fillData()
-	 * Opposite of saveState, this method loads data from the database helper
-	 * into the view fields.
-	 */
-	private void fillData() {
-
-		Patient pat = MyApp.getPatient();
-		mIdText.setText( Integer.toString(pat.getId()) );
-		mNotesText.setText( pat.getNotes() );
-		
-		// if the returned values from the cursor is not 0 then 
-		// setChecked(true) or else setChecked(false)
-		
-		try {
-			boolean[] checkBoxes = pat.getCheckBoxes();
-			for (int i = 0; i < checkBoxes.length; i++)
-				mCheckBox1.setChecked(checkBoxes[i]);
-		} catch (Exception e) {
-			Log.d("exception", e.getMessage());
-			e.printStackTrace();
-		}
-		
+	@Override
+	protected void onPause() {
+		super.onPause();
+		saveState();
 	}
-
+	
 	/**
 	 * method saveState()
 	 * As the name implies this method is called to save the view fields to the
@@ -123,7 +161,22 @@ public class PatientSummaryActivity extends Activity {
 	 */
 	private void saveState() {
 		// 	Update patient
-		db.updatePatient(MyApp.getPatient());
+//		db.updatePatient(MyApp.getPatient());
+		
+		String name = (String) mNameText.getText().toString();
+		String notes = (String) mNotesText.getText().toString();
+
+	    ContentValues values = new ContentValues();
+	    values.put(PatientTable.COLUMN_FIRSTNAME, name);
+	    values.put(PatientTable.COLUMN_NOTES, notes);
+
+	    if (patientUri == null) {
+	    	// New todo
+	    	patientUri = getContentResolver().insert(PatientContentProvider.CONTENT_URI, values);
+	    } else {
+	    	// Update todo
+	    	getContentResolver().update(patientUri, values, null, null);
+	    }
 	}
-	
+
 }

@@ -43,7 +43,7 @@ public class PatientSelectionActivity extends Activity {
 	public void onClick(View view) {
 		switch(view.getId()) {
 		case R.id.newPatient:
-			startActivity(new Intent(this, NewPatientActivity.class));
+			startActivity(new Intent(this, PatientNewActivity.class));
 			break;
 		case R.id.open:
 			onOpen(view);
@@ -74,18 +74,18 @@ public class PatientSelectionActivity extends Activity {
 			
 			// check that the ID exists in the database
 			// if it does then set that to the current patient, else show error
-			try {
-				if (db.getPatient(id) != null) {
-					success = true;
-					MyApp.setPatient(db.getPatient(id));
-				} else {
-					success = false;
-					String em = "Error retrieving patient file. Patient ID:" + id + " does not exist.";
-					makeToast(em);	
-				}
-			} catch(Exception e) {
-				Log.d("exception", e.getMessage());
-			}
+//			try {
+//				if (db.getPatient(id) != null) {
+//					success = true;
+//					MyApp.setPatient(db.getPatient(id));
+//				} else {
+//					success = false;
+//					String em = "Error retrieving patient file. Patient ID:" + id + " does not exist.";
+//					makeToast(em);	
+//				}
+//			} catch(Exception e) {
+//				Log.d("exception", e.getMessage());
+//			}
 			
 			if (success) {
 				Intent intent = new Intent(this, PatientSummaryActivity.class);

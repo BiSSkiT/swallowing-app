@@ -2,7 +2,12 @@ package com.benhan82.SOCK;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -10,24 +15,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.benhan82.SOCK.database.Patient;
-import com.benhan82.SOCK.database.PatientDatabaseHelper;
+import com.benhan82.SOCK.database.PatientContentProvider;
+import com.benhan82.SOCK.database.PatientTable;
 
 /**
  * class PatientListActivity
  * This class lists the available patients in the database. The activity is started
  * by clicking browse in the PatientSelectionActivity.
- * @author Ben Han
+ * @author Adapted by Ben Han. Original code from 
+ * 
+ * http://www.vogella.com/tutorials/AndroidSQLite/article.html
+ * Android SQLite database and content provider - Tutorial - 
+ * by Lars Vogel
  *
  */
-public class PatientListActivity extends ListActivity  {
+public class PatientListActivity extends ListActivity implements
+	LoaderManager.LoaderCallbacks<Cursor> {
 	
+	private static final int ACTIVITY_CREATE = 0;
+	private static final int ACTIVITY_EDIT = 1;
 	private static final int DELETE_ID = Menu.FIRST + 1;
-	private PatientDatabaseHelper db;
+	//private Cursor cursor
+	private SimpleCursorAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +48,6 @@ public class PatientListActivity extends ListActivity  {
 		this.getListView().setDividerHeight(2);
 		fillData();
 		registerForContextMenu(getListView());
-		this.db = MyApp.getDb();
 	}
 
 	@Override
@@ -51,7 +62,7 @@ public class PatientListActivity extends ListActivity  {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		// handler method called when the user clicks insert button on the menu
-		case R.id.insert:
+		case R.id.newPatient:
 			createPatient();
 			return true;
 		}
@@ -66,30 +77,29 @@ public class PatientListActivity extends ListActivity  {
 		case DELETE_ID:
 			// cast to AdapterContextMenuInfo to allow us to get the position of the item
 			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-			ListAdapter adapter = this.getListAdapter();
-			Object o = adapter.getItem(info.position);
-			Log.d("debug", o.toString());
-			// delete the patient from the database, requires the database id of the patient
-			
+		    Uri uri = Uri.parse(PatientContentProvider.CONTENT_URI + "/"
+		          + info.id);
+		    getContentResolver().delete(uri, null, null);
+			Log.d("debug", "in delete item");
 			fillData();
 			return true;
 		}
 		return super.onContextItemSelected(item);
 	}
 
-	// handler method called when the user clicks insert button on the menu, or the
-	// New button or Open button with a valid patient id
-	private Patient createPatient() {
-		Patient patient = new Patient("Bob", "Jones");		
-		db.addPatient(patient);
-		return patient;
+	// handler method called when the user clicks new button on the menu
+	private void createPatient() {
+		startActivity(new Intent(this, PatientNewActivity.class));
 	}
 	
 	// Opens the second activity if an entry is clicked   TODO!!!!!
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, PatientSummaryActivity.class);		
+		Intent i = new Intent(this, PatientSummaryActivity.class);
+		Uri todoUri = Uri.parse(PatientContentProvider.CONTENT_URI + "/" + id);
+	    i.putExtra(PatientContentProvider.CONTENT_ITEM_TYPE, todoUri);
+	    
 		startActivity(i);
 	}
 	
@@ -99,9 +109,9 @@ public class PatientListActivity extends ListActivity  {
 	// 	Fields from the database (projection)
 	//	To fill the list of available patient entries.
     // 	Must include the _id column for the adapter to work
-		String[] from = new String[] { PatientDatabaseHelper.COLUMN_FIRSTNAME, 
-				PatientDatabaseHelper.COLUMN_LASTNAME,
-				PatientDatabaseHelper.COLUMN_ID };
+		String[] from = new String[] { PatientTable.COLUMN_FIRSTNAME, 
+				PatientTable.COLUMN_LASTNAME,
+				PatientTable.COLUMN_ID };
     // 	Fields on the UI to which we map
 		int[] to = new int[] { R.id.firstName, R.id.lastName, R.id.dbId };
 		
@@ -117,6 +127,43 @@ public class PatientListActivity extends ListActivity  {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+	}
+
+	
+	/**
+	 * The three methods below: onCreateLoader(), onLoadFinished(), and onLoaderReset()
+	 * are the implementation for the LoaderManager.LoaderCallbacks interface.
+	 */
+	
+	
+	/**
+	 * This is the callback method when the Loader is initialised.
+	 * The CursorLoader is created here.
+	 */
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+	    String[] projection = PatientTable.COLUMNS;
+	    CursorLoader cursorLoader = new CursorLoader(this,
+	        PatientContentProvider.CONTENT_URI, projection, null, null, null);
+	    return cursorLoader;
+	}
+
+	/**
+	 * This is the callback method invoked once the Loader has finished loading
+	 * the data in the background.
+	 */
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+	    adapter.swapCursor(data);
+	}
+
+	/**
+	 * This callback method is invoked if the Cursor becomes invalid.
+	 */
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+	    // data is not available anymore, delete reference
+	    adapter.swapCursor(null);
 	}
 
 }

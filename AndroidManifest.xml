@@ -81,14 +81,14 @@
         </activity>
         <activity
             android:name="com.benhan82.SOCK.PatientSummaryActivity"
-            android:label="@string/title_activity_patient_detail"
+            android:label="@string/title_activity_patient_summary"
             android:parentActivityName="com.benhan82.SOCK.PatientListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.benhan82.SOCK.PatientListActivity" />
         </activity>
         <activity
-            android:name="com.benhan82.SOCK.NewPatientActivity"
+            android:name="com.benhan82.SOCK.PatientNewActivity"
             android:label="@string/title_activity_new_patient"
             android:parentActivityName="com.benhan82.SOCK.PatientSelectionActivity" >
             <meta-data
@@ -109,6 +109,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+  		<provider
+      		android:name=".database.PatientContentProvider"
+      		android:authorities="com.benhan82.SOCK.database" 
+      		android:exported="false" >
+   		</provider>
+   		
     </application>
 
 </manifest>
