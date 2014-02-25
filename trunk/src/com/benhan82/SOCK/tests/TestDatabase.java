@@ -98,40 +98,40 @@ public class TestDatabase {
 		patients[2] = new Patient("3. Neil", "Diamond");
 		patients[3] = new Patient("4. Natalie", "Harbott");
 		patients[4] = new Patient("5. Ella", "Keena");
-				
-		// Clear out any old entries in the database table
-		db.clearTable();
-		
-		// Add our example patients
-		for (int i = 0; i < patients.length; i++)
-			db.addPatient(patients[i]);
-		
-		// Get individual patients. Note: Indexing starts at 1 for database
-		for (int i = 1; i <= patients.length; i++)
-			db.getPatient(i);
-		
-		// Get all patients
-		List<Patient> list = db.getAllPatients();
-		
-		// Update some entries
-		Patient p1 = list.get(0);
-		Patient p2 = db.getPatient(p1.getId());
-		p2.setFirstName("Bob");
-		p2.setLastName("Parker");
-		p2.setNotes("Cheers to the old mayor");
-		db.updatePatient(p2);
-		p2 = db.getPatient(p1.getId());
-		
-		// set the current patient reference to point to the new pTemp (1st row)
-		MyApp.setPatient(p1);
-		Patient p3 = MyApp.getPatient();
-		
-		Log.d("patient","p1: " + p1.toString() + "\np2: " + p2.toString() + "\np3: " + p3.toString());
-		
-		db.deletePatient(p1.getId());
-		
-		// check the patient has been deleted
-		db.getAllPatients();
+//				
+//		// Clear out any old entries in the database table
+//		db.clearTable();
+//		
+//		// Add our example patients
+//		for (int i = 0; i < patients.length; i++)
+//			db.addPatient(patients[i]);
+//		
+//		// Get individual patients. Note: Indexing starts at 1 for database
+//		for (int i = 1; i <= patients.length; i++)
+//			db.getPatient(i);
+//		
+//		// Get all patients
+//		List<Patient> list = db.getAllPatients();
+//		
+//		// Update some entries
+//		Patient p1 = list.get(0);
+//		Patient p2 = db.getPatient(p1.getId());
+//		p2.setFirstName("Bob");
+//		p2.setLastName("Parker");
+//		p2.setNotes("Cheers to the old mayor");
+//		db.updatePatient(p2);
+//		p2 = db.getPatient(p1.getId());
+//		
+//		// set the current patient reference to point to the new pTemp (1st row)
+//		MyApp.setPatient(p1);
+//		Patient p3 = MyApp.getPatient();
+//		
+//		Log.d("patient","p1: " + p1.toString() + "\np2: " + p2.toString() + "\np3: " + p3.toString());
+//		
+//		db.deletePatient(p1.getId());
+//		
+//		// check the patient has been deleted
+//		db.getAllPatients();
 		
 	}
 	

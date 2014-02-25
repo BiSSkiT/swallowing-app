@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:lines="1"
-        android:text="sample text"
+        android:text="First"
         android:textSize="24dp" >
     </TextView>
 
@@ -30,7 +30,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginLeft="10dp"
         android:lines="1"
-        android:text="TextView"
+        android:text="Last"
         android:textSize="24dp" >
     </TextView>
     
@@ -41,7 +41,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginLeft="10dp"
         android:lines="1"
-        android:text="TextView"
+        android:text="Id"
         android:textSize="24dp" >
    	</TextView>
    	

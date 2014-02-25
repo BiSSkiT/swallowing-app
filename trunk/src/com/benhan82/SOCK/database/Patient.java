@@ -4,6 +4,14 @@ import com.benhan82.SOCK.MyApp;
 
 import android.content.ContentValues;
 
+/**
+ * @author Adapted by Ben Han. Original code from 
+ * 
+ * http://www.vogella.com/tutorials/AndroidSQLite/article.html
+ * Android SQLite database and content provider - Tutorial - 
+ * by Lars Vogel
+ *
+ */
 public class Patient {
 	
 	private int id;

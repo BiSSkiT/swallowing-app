@@ -21,14 +21,14 @@
     <string name="button_learn_asse">Clinical\nAssessment</string>
     <string name="button_learn_diag">Diagnosis</string>
     <string name="button_learn_educ">Patient\nEducation</string>
-    <string name="title_activity_patient_detail">PatientDetailActivity</string>
+    <string name="title_activity_patient_summary">Patient File Summary</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_patient_list">PatientListActivity</string>
     <string name="title_activity_patient_selection">Patient Selection</string>
     <string name="patient_selection_tv">Patient ID: </string>
-    <string name="patient_menu_item_insert">Insert</string>
+    <string name="patient_menu_item_new">New Patient</string>
     <string name="menu_delete">Delete</string>
     <string name="title_activity_new_patient">New Patient Activity</string>
     <string name="new_patient_button">Create file</string>
