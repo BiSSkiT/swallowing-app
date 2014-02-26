@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.benhan82.SOCK.database.PatientContentProvider;
 import com.benhan82.SOCK.database.PatientDatabaseHelper;
@@ -22,8 +23,9 @@ import com.benhan82.SOCK.database.PatientTable;
  */
 public class PatientSummaryActivity extends Activity {
 	
-	private EditText mNameText;
-	private EditText mIdText;
+	private EditText mFirstName;
+	private EditText mLastName;
+	private TextView mIdText;
 	private EditText mNotesText;
 	private CheckBox mCheckBox1, mCheckBox2, mCheckBox3, mCheckBox4;
 	private PatientDatabaseHelper db = MyApp.getDb();
@@ -37,9 +39,10 @@ public class PatientSummaryActivity extends Activity {
 		// Show the Up button in the action bar.
 //		setupActionBar();
 		
-		mNameText = (EditText) findViewById(R.id.patientName);
-		mIdText = (EditText) findViewById(R.id.patientIdText);
-		mNotesText = (EditText) findViewById(R.id.patientSummaryText);
+		mFirstName = (EditText) findViewById(R.id.firstName);
+		mLastName = (EditText) findViewById(R.id.lastName);
+		mIdText = (TextView) findViewById(R.id.patientIdText);
+		mNotesText = (EditText) findViewById(R.id.patientNotesText);
 		mCheckBox1 = (CheckBox) findViewById(R.id.clin_asse_1a_cb04);
 		mCheckBox2 = (CheckBox) findViewById(R.id.clin_asse_1a_cb05);
 		mCheckBox3 = (CheckBox) findViewById(R.id.clin_asse_1a_cb07);
@@ -110,7 +113,8 @@ public class PatientSummaryActivity extends Activity {
 			String lastName = cursor.getString(cursor
 					.getColumnIndexOrThrow(PatientTable.COLUMN_LASTNAME));
 			
-			mNameText.setText(firstName);
+			mFirstName.setText(firstName);
+			mLastName.setText(lastName);
 			
 			// set ID text and notes
 			mIdText.setText(cursor.getString(cursor
@@ -163,7 +167,7 @@ public class PatientSummaryActivity extends Activity {
 		// 	Update patient
 //		db.updatePatient(MyApp.getPatient());
 		
-		String name = (String) mNameText.getText().toString();
+		String name = (String) mFirstName.getText().toString();
 		String notes = (String) mNotesText.getText().toString();
 
 	    ContentValues values = new ContentValues();

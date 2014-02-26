@@ -43,7 +43,7 @@ public class PatientSelectionActivity extends Activity {
 	public void onClick(View view) {
 		switch(view.getId()) {
 		case R.id.newPatient:
-			startActivity(new Intent(this, PatientNewActivity.class));
+			startActivity(new Intent(this, PatientSummaryActivity.class));
 			break;
 		case R.id.open:
 			onOpen(view);
