@@ -89,7 +89,7 @@ public class PatientListActivity extends ListActivity implements
 
 	// handler method called when the user clicks new button on the menu
 	private void createPatient() {
-		startActivity(new Intent(this, PatientNewActivity.class));
+		startActivity(new Intent(this, PatientSummaryActivity.class));
 	}
 	
 	// Opens the second activity if an entry is clicked   TODO!!!!!
