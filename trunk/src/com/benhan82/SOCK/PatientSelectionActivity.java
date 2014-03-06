@@ -14,7 +14,7 @@ import com.benhan82.SOCK.tests.TestUI;
 
 public class PatientSelectionActivity extends Activity {
 	
-	EditText et;
+	EditText et;	// this is the text box to enter the user ID if known, the open button uses this
 	PatientDatabaseHelper db;
 	
 	@Override
@@ -23,20 +23,22 @@ public class PatientSelectionActivity extends Activity {
 		setContentView(R.layout.activity_patient_selection);
 		et = (EditText) findViewById(R.id.editTextId);
 		db = MyApp.getDb();
+		// create a PatientDatabaseHelper which extends SQLiteOpenHelper
+//		db = new PatientDatabaseHelper(this);
 		MyApp.setPSA(this);
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.patient_selection, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.patient_selection, menu);
+//		return true;
+//	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		finish();
+		//finish();	//kill activity on starting another activity
 	}
 
 	// onClick button handlers

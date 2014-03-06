@@ -181,6 +181,12 @@ public class PatientSummaryActivity extends Activity {
 	    	// Update todo
 	    	getContentResolver().update(patientUri, values, null, null);
 	    }
+	    
+	    
+	    /**
+	     * DEBUG CODE
+	     */
+//	    getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder)
 	}
 
 }

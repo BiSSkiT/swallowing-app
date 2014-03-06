@@ -1,13 +1,13 @@
 package com.benhan82.SOCK;
 
 import android.app.ListActivity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -46,7 +46,7 @@ public class PatientListActivity extends ListActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient_list);
 		this.getListView().setDividerHeight(2);
-		fillData();
+		fillData();		// this method grabs data from the database
 		registerForContextMenu(getListView());
 	}
 
@@ -110,14 +110,24 @@ public class PatientListActivity extends ListActivity implements
 	//	To fill the list of available patient entries.
     // 	Must include the _id column for the adapter to work
 		String[] from = new String[] { PatientTable.COLUMN_FIRSTNAME, 
-				PatientTable.COLUMN_LASTNAME,
-				PatientTable.COLUMN_ID };
+				PatientTable.COLUMN_LASTNAME };
+		
     // 	Fields on the UI to which we map
-		int[] to = new int[] { R.id.firstName, R.id.lastName, R.id.dbId };
+		int[] to = new int[] { R.id.rowFirstName, R.id.rowLastName };
+
+	// 	This call results in the callback method onCreateLoader() to be called
+	    getLoaderManager().initLoader(0, null, this);
+	    
+    //	setup the CursorAdapter, to which the cursor will be passed in onLoadFinished()
+		adapter = new SimpleCursorAdapter(
+						this,							// current context 
+						R.layout.patient_list_row, 		// layout for a single row
+						null, 							// no cursor yet	
+						from, 							// Cursor columns to use
+						to, 							// layout fields to use
+						0);								// no flags
 		
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.patient_list_row, null, from,
-				to, 0);
-		
+	//	Link the new adapter to this activity
 		setListAdapter(adapter);
 	}
 	
@@ -142,7 +152,8 @@ public class PatientListActivity extends ListActivity implements
 	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-	    String[] projection = PatientTable.COLUMNS;
+	    String[] projection = { PatientTable.COLUMN_ID, 
+				PatientTable.COLUMN_FIRSTNAME, PatientTable.COLUMN_LASTNAME};
 	    CursorLoader cursorLoader = new CursorLoader(this,
 	        PatientContentProvider.CONTENT_URI, projection, null, null, null);
 	    return cursorLoader;
