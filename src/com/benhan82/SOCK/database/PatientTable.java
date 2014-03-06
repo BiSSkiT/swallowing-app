@@ -15,10 +15,10 @@ public class PatientTable {
 	
 	// Database table
 	public static final String TABLE_PATIENTS = "patients";
-	public static final String COLUMN_ID = "ID";				//0
-	public static final String COLUMN_NOTES = "NOTES";			//1
-	public static final String COLUMN_FIRSTNAME = "FIRSTNAME";	//2
-	public static final String COLUMN_LASTNAME = "LASTNAME";	//3
+	public static final String COLUMN_ID = "_id";				//0
+	public static final String COLUMN_NOTES = "notes";			//1
+	public static final String COLUMN_FIRSTNAME = "first_name";	//2
+	public static final String COLUMN_LASTNAME = "last_name";	//3
 	public static final String COLUMN_CB1 = "CB1";				//4
 	public static final String COLUMN_CB2 = "CB2";
 	public static final String COLUMN_CB3 = "CB3";

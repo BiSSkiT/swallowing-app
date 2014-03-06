@@ -17,9 +17,9 @@ public class MyApp extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		db = new PatientDatabaseHelper(this);
+//		db = new PatientDatabaseHelper(this);
 		
-		Log.d("debug", "just finished making the database, boo yah!");
+//		Log.d("debug", "just finished making the database, boo yah!");
 	}
 
 	

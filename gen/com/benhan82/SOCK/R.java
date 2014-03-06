@@ -46,7 +46,7 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0012;
-        public static final int action_settings=0x7f0a005b;
+        public static final int action_settings=0x7f0a005c;
         public static final int browse=0x7f0a0015;
         public static final int button1=0x7f0a0003;
         public static final int button2=0x7f0a0004;
@@ -84,7 +84,6 @@ public final class R {
         public static final int cnFragmentContainer=0x7f0a002d;
         public static final int container=0x7f0a000a;
         public static final int currentPatientText=0x7f0a0007;
-        public static final int dbId=0x7f0a005a;
         public static final int doneButton=0x7f0a001f;
         public static final int editText3=0x7f0a002f;
         public static final int editText4=0x7f0a0030;
@@ -104,6 +103,8 @@ public final class R {
         public static final int patientIdText=0x7f0a0019;
         public static final int patientNotesText=0x7f0a001b;
         public static final int relativeLayout=0x7f0a0008;
+        public static final int rowFirstName=0x7f0a005a;
+        public static final int rowLastName=0x7f0a005b;
         public static final int scrollView1=0x7f0a0009;
         public static final int section_label=0x7f0a0055;
         public static final int tableLayout1=0x7f0a000c;

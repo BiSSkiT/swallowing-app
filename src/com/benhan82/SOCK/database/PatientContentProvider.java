@@ -3,6 +3,8 @@ package com.benhan82.SOCK.database;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import com.benhan82.SOCK.MyApp;
+
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -48,6 +50,7 @@ public class PatientContentProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		database = new PatientDatabaseHelper(getContext());
+		MyApp.setDb(database);
 		return false;
 	}
 
