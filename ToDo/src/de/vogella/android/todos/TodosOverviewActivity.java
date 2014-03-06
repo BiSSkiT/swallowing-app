@@ -113,6 +113,8 @@ public class TodosOverviewActivity extends ListActivity implements
 		
 		// This is where the loader is initialised.
 		getLoaderManager().initLoader(0, null, this);
+		
+		// Create and link adaptor to accept cursor returned from query
 		adapter = new SimpleCursorAdapter(this, R.layout.todo_row, null, from,
 				to, 0);
 		

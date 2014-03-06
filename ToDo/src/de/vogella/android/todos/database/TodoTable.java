@@ -31,6 +31,7 @@ public class TodoTable {
 			+ ");";
 	
 	public static void onCreate(SQLiteDatabase database) {
+		// Create database
 		database.execSQL(DATABASE_CREATE);
 	}
 	
