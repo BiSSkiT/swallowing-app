@@ -39,7 +39,7 @@ public class SplashActivity extends Activity {
 //			}
 //		};
 //		timer.start();
-		
+//		
 		// for debugging this class will open the PatientSelectionActivity only
 		startActivity(new Intent(this, PatientSelectionActivity.class));
 	}
