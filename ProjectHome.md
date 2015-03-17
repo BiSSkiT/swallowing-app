@@ -1,0 +1,1 @@
+This app is designed for Android 2.2+ using the standard Android Eclipse IDE.
